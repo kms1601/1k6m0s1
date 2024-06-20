@@ -1,7 +1,9 @@
+import SetThemeBtn from "@/components/SetThemeBtn";
+
 const Index = () => {
   return (
-    <div>
-      <p>Hello, World!</p>
+    <div className="text-center">
+      <div className="h-56"></div>
     </div>
   );
 }
