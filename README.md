@@ -34,25 +34,37 @@ Next.js는 계속해서 상승세를 보이는 풀스택 프레임워크입니�
 채울 예정
 </details>
 
-### 3. 글 작성: [react-md-editor](https://github.com/uiwjs/react-md-editor)
+### 3. DB: [MySQL](https://www.mysql.com/)
 <details>
 <summary>상세 내용</summary>
 채울 예정
 </details>
 
-### 4. 글 파싱: [Next-MDX-Remote](https://github.com/hashicorp/next-mdx-remote#react-server-components-rsc--nextjs-app-directory-support)
+### 4. ORM: [Prisma](https://www.prisma.io/)
 <details>
 <summary>상세 내용</summary>
 채울 예정
 </details>
 
-### 5. 반응, 댓글: [Giscus](https://giscus.app/)
+### 5. 글 작성: [react-md-editor](https://github.com/uiwjs/react-md-editor)
 <details>
 <summary>상세 내용</summary>
 채울 예정
 </details>
 
-### 6. 배포: [Vercel](https://vercel.com/)
+### 6. 글 파싱: [Next-MDX-Remote](https://github.com/hashicorp/next-mdx-remote#react-server-components-rsc--nextjs-app-directory-support)
+<details>
+<summary>상세 내용</summary>
+채울 예정
+</details>
+
+### 7. 반응, 댓글: [Giscus](https://giscus.app/)
+<details>
+<summary>상세 내용</summary>
+채울 예정
+</details>
+
+### 8. 배포: [Vercel](https://vercel.com/)
 <details>
 <summary>상세 내용</summary>
 채울 예정
@@ -64,5 +76,6 @@ Next.js는 계속해서 상승세를 보이는 풀스택 프레임워크입니�
 - 반응, 댓글 X
 - 카테고리 X
 - 검색 X
+- 관리자 로그인 X
 
 (X 표시는 미구현입니다.)
