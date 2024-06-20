@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 1k6m0s1
 
-## Getting Started
+## 블로그 이름의 의미
 
-First, run the development server:
+평소 사이트 회원가입 시 많이 사용하는 아이디를 변형한 것입니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 직접 만든 이유
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. 포트폴리오 정리 및 포트폴리오
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+포트폴리오 소개와 함께 이것 자체도 포트폴리오입니다. 가장 큰 이유입니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 2. 내가 배우고 안 것 정리
 
-## Learn More
+내가 배웠고 안 것을 정리하면 기억에 더 잘 남습니다.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. 자유로운 디자인
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+여러 블로그 플랫폼이 존재하지만 자유도는 그만큼 떨어집니다. 제가 직접 만들면 디자인을 마음대로 꾸밀 수 있습니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 기술 스택
 
-## Deploy on Vercel
+### 1. 프레임워크: [Next.js](https://nextjs.org/)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<details>
+<summary>상세 내용</summary>
+Next.js는 계속해서 상승세를 보이는 풀스택 프레임워크입니다. React와동일한 문법, 파일 기반의 라우팅으로 빠르고 쉬운 개발이 가능합니다. 또한, SSR이기 때문에 SEO가 용이하고 성능이 좋습니다. 해당
+프레임워크에 익숙해지기 위해 Next.js를 선택하였습니다.
+</details>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 2. 디자인: [Tailwind CSS](https://tailwindcss.com/)
+<details>
+<summary>상세 내용</summary>
+채울 예정
+</details>
+
+### 3. 글 작성: [react-md-editor](https://github.com/uiwjs/react-md-editor)
+<details>
+<summary>상세 내용</summary>
+채울 예정
+</details>
+
+### 4. 글 파싱: [Next-MDX-Remote](https://github.com/hashicorp/next-mdx-remote#react-server-components-rsc--nextjs-app-directory-support)
+<details>
+<summary>상세 내용</summary>
+채울 예정
+</details>
+
+### 5. 반응, 댓글: [Giscus](https://giscus.app/)
+<details>
+<summary>상세 내용</summary>
+채울 예정
+</details>
+
+### 6. 배포: [Vercel](https://vercel.com/)
+<details>
+<summary>상세 내용</summary>
+채울 예정
+</details>
+
+## 기능
+
+- 게시글 목록, 상세 페이지 X
+- 반응, 댓글 X
+- 카테고리 X
+- 검색 X
+
+(X 표시는 미구현입니다.)
