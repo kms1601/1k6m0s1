@@ -11,8 +11,9 @@ const Admin = () => {
   const {auth, setAuth} = useAuth();
   const {time, setTime} = useTime();
 
-  useEffect(() => {
+  useEffect( () => {
     const token = localStorage.getItem("token");
+
     if (!token) {
       return;
     }
@@ -23,34 +24,37 @@ const Admin = () => {
       }
     }).then(
       res => {
-        setTime({time: getRemainingTime(res.data.user)});
-        setAuth({auth: true});
+        setTime(getRemainingTime(res.data.user));
+        setAuth(true);
       }
     ).catch(() => {
-      localStorage.removeItem("token")
-      setAuth({auth: false});
+      localStorage.removeItem("token");
+      setAuth(false);
     });
   }, [setAuth, setTime]);
 
   useEffect(() => {
-    if (time.time > 0) {
+    if (time >= 0) {
       const id = setInterval(() => {
-        setTime({time: time.time - 1});
+        setTime(time - 1);
       }, 1000)
       return () => clearInterval(id);
     } else {
-      setAuth({auth: false});
+      localStorage.removeItem("token");
+      setAuth(false);
     }
   }, [setAuth, setTime, time]);
 
   return (
     <div>
       {
-        auth.auth
+        auth
           ?
           <>
-            <p>관리자</p>
-            <p>남은 시간 <span className="font-mono">{secToHMS(time.time)}</span></p>
+            <div className="flex justify-evenly">
+              <p className="text-center">관리자</p>
+            </div>
+            <p className="text-center text-sm">Remaining <span className="font-mono">{secToHMS(time)}</span></p>
           </>
           : null
       }

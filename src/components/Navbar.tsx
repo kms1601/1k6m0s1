@@ -1,22 +1,31 @@
-import React from 'react';
+"use client"
+
+import React, {useContext} from 'react';
 import SetThemeBtn from "@/components/SetThemeBtn";
-import {allowedDisplayValues} from "next/dist/compiled/@next/font/dist/constants";
 import Admin from "@/components/Admin";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
     <nav
-      className="fixed top-0 z-10 grid h-24 w-full grid-cols-6 place-items-center transition-colors duration-100 bg-secondary dark:bg-secondary-dark">
-      <div className="col-span-1"/>
-      <div className="col-span-2 justify-self-start text-2xl font-bold">
-        <h1>1K6M0S1</h1>
+      className="fixed top-0 z-10 grid h-20 w-full grid-cols-9 place-items-center transition-colors duration-100 bg-secondary dark:bg-secondary-dark">
+      <div/>
+      <div className="text-3xl font-bold"><Link href="/">1K6M0S1</Link></div>
+      <div className="col-span-3 flex justify-self-start grid-cols-3 gap-6 ml-16">
+        <div className="flex justify-center items-center">
+          <Link href="/">Blog</Link>
+        </div>
+        <div className="flex justify-center items-center">
+          <Link href="/">Portfolio</Link>
+        </div>
+        <div className="flex justify-center items-center">
+          <Link href="/">About</Link>
+        </div>
       </div>
-      <div className="col-span-2 justify-self-end">
-        <SetThemeBtn/>
+      <div className="col-span-2 text-2xl font-bold">
       </div>
-      <div className="col-span-1">
-        <Admin/>
-      </div>
+      <div><SetThemeBtn/></div>
+      <div><Admin/></div>
     </nav>
   );
 };

@@ -1,22 +1,16 @@
 import { create } from 'zustand'
 
-interface TimeType {
-  time: number;
-}
-
 interface TimeState {
-  time: TimeType
+  time: number
 }
 
 interface TimeActions {
-  setTime: (time: TimeType) => void
+  setTime: (time: number) => void
 }
 
-const defaultState = { time: 0 };
-
 const useTime  = create<TimeState & TimeActions>((set) => ({
-  time: defaultState,
-  setTime: (time: TimeType) => {set({ time })},
+  time: 0,
+  setTime: (time: number) => {set({ time })},
 }))
 
 export default useTime;

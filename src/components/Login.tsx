@@ -51,8 +51,8 @@ const Login = () => {
 
       const token = res.data.token;
       localStorage.setItem("token", token);
-      setAuth({auth: true});
-      setTime({time: EXPIRE_TIME});
+      setAuth(true);
+      setTime(EXPIRE_TIME);
       router.push("login/redirect");
     } catch (error) {
       console.error("로그인 실패", error);

@@ -14,9 +14,23 @@ datasource db {
 }
 
 model Post {
-  id         Int       @id @default(autoincrement())
-  title      String
-  content    String
-  createdAt  DateTime  @default(now())
-  modifiedAt DateTime
+  id          Int        @id @default(autoincrement())
+  title       String
+  path        String     @unique
+  created_at  DateTime   @default(now())
+  modified_at DateTime
+  categories  Category[]
+  tags        Tag[]
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  posts Post[]
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  posts Post[]
 }

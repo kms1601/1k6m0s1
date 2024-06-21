@@ -25,7 +25,7 @@ const verify = (req: NextApiRequest, res: NextApiResponse) => {
   const token = authHeader.split(' ')[1];
   const decodedToken = verifyToken(token);
   if (!decodedToken) {
-    return res.status(401).json({ message: 'Invalid or expired token' });
+    return res.status(200).json({ message: 'Invalid or expired token' });
   }
 
   res.status(200).json({ message: 'Secure data', user: decodedToken });

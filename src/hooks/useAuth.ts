@@ -1,22 +1,16 @@
 import { create } from 'zustand'
 
-interface AuthType {
-  auth: boolean;
-}
-
 interface AuthState {
-  auth: AuthType
+  auth: boolean
 }
 
 interface AuthActions {
-  setAuth: (auth: AuthType) => void
+  setAuth: (auth: boolean) => void
 }
 
-const defaultState = { auth: false };
-
 const useAuth  = create<AuthState & AuthActions>((set) => ({
-  auth: defaultState,
-  setAuth: (auth: AuthType) => {set({ auth })},
+  auth: false,
+  setAuth: (auth: boolean) => {set({auth})},
 }))
 
 export default useAuth;
