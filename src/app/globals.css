@@ -77,6 +77,6 @@ http://scripts.sil.org/OFL
 body {
   margin: 0;
   box-sizing: content-box;
-  font-family: 'Pretendard', serif;
+  font-family: 'Pretendard', serif, monospace;
 }
 

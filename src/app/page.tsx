@@ -1,5 +1,3 @@
-import SetThemeBtn from "@/components/SetThemeBtn";
-
 const Index = () => {
   return (
     <div className="text-center">

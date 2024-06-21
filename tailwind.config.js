@@ -36,11 +36,14 @@ module.exports = {
         primary: "#fdf2f8",
         secondary: "#ffffff",
         popover: "#f1e2eb",
+        text: "#020617",
+        warning: "#dd1313",
 
         // Dark mode
         "primary-dark": "#2b2d30",
         "secondary-dark": "#1f2023",
         "popover-dark": "#171919",
+        "text-dark": "#f8fafc",
       }
     },
   },
