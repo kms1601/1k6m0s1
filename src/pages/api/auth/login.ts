@@ -10,7 +10,7 @@ const Login = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const secretKey = process.env.NEXT_PUBLIC_JWT_SECRET_KEY;
+  const secretKey = process.env.JWT_SECRET_KEY;
   if (!secretKey) {
     res.status(500).json({
       status: "Internal Server Error",
@@ -19,7 +19,7 @@ const Login = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD
+  const adminPassword = process.env.ADMIN_PASSWORD
   if (!adminPassword) {
     res.status(500).json({
       status: "Internal Server Error",

@@ -3,7 +3,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import * as process from "node:process";
 
 const verifyToken = (token: string): JwtPayload | null => {
-  const secretKey = process.env.NEXT_PUBLIC_JWT_SECRET_KEY;
+  const secretKey = process.env.JWT_SECRET_KEY;
   if (!secretKey) {
     return null;
   }
