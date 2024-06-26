@@ -35,7 +35,7 @@ const Admin = () => {
 
   useEffect(() => {
     if (time >= 0) {
-      const id = setInterval(() => {
+      const id = setTimeout(() => {
         setTime(time - 1);
       }, 1000)
       return () => clearInterval(id);

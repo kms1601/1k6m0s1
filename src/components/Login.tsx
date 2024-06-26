@@ -55,7 +55,7 @@ const Login = () => {
       setTime(EXPIRE_TIME);
       router.push("login/redirect");
     } catch (error) {
-      console.error("로그인 실패", error);
+      console.error("Login Failed", error);
     }
   };
 
@@ -74,7 +74,7 @@ const Login = () => {
               failed ? <p className="mb-1 text-warning">비밀번호가 다릅니다</p> : null
             }
             <input name="password" type="password" placeholder="password" onChange={handlePasswordChange}
-                   className="outline-none rounded-md pr-2 pl-2 text-center transition duration-100 bg-popover hover:bg-primary focus:bg-primary dark:bg-popover-dark dark:hover:bg-primary-dark dark:focus:bg-primary-dark"/>
+                   className="outline-none w-44 rounded-md pr-2 pl-2 text-center transition duration-100 bg-popover hover:bg-primary focus:bg-primary dark:bg-popover-dark dark:hover:bg-primary-dark dark:focus:bg-primary-dark"/>
             <button
               type="submit"
               className="mt-3 w-20 rounded-md transition duration-100 p-1.5 bg-popover hover:bg-primary dark:bg-popover-dark dark:hover:bg-primary-dark">로그인

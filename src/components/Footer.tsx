@@ -22,7 +22,7 @@ const Footer = () => {
         <div className="flex items-center">
           <p className="text-sm flex">&copy; 2024 kms1601. All rights reserved.</p>
           <Link href="/login" className="inline-block align-middle">
-            <Lock className="h-3 w-3 ml-2"/>
+            <Lock className="h-3 w-3 ml-1"/>
           </Link>
         </div>
       </footer>
