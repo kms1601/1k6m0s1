@@ -1,6 +1,4 @@
 import React from 'react';
-import Link from "next/link";
-import {Lock} from "lucide-react";
 
 const Footer = () => {
   return (
@@ -21,9 +19,6 @@ const Footer = () => {
         </div>
         <div className="flex items-center">
           <p className="text-sm flex">&copy; 2024 kms1601. All rights reserved.</p>
-          <Link href="/login" className="inline-block align-middle">
-            <Lock className="h-3 w-3 ml-1"/>
-          </Link>
         </div>
       </footer>
     </>

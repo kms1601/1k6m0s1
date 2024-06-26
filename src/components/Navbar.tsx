@@ -2,7 +2,6 @@
 
 import React from 'react';
 import SetThemeBtn from "@/components/SetThemeBtn";
-import Admin from "@/components/Admin";
 import Link from "next/link";
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import {Menu} from "lucide-react";
@@ -18,7 +17,7 @@ const Navbar = () => {
           <div className="text-3xl font-bold"><Link href="/">1K6M0S1</Link></div>
           <div className="col-span-3 ml-16 flex grid-cols-3 gap-6 justify-self-start">
             <div className="flex items-center justify-center">
-              <Link href="/">Blog</Link>
+              <Link href="/blog">Blog</Link>
             </div>
             <div className="flex items-center justify-center">
               <Link href="/">Portfolio</Link>
@@ -30,7 +29,6 @@ const Navbar = () => {
           <div className="col-span-2 text-2xl font-bold">
           </div>
           <div><SetThemeBtn/></div>
-          <div><Admin/></div>
         </nav>
       </div>
 
@@ -45,7 +43,7 @@ const Navbar = () => {
               <SheetTrigger><Menu className="h-8 w-8"></Menu></SheetTrigger>
               <SheetContent className="w-1/2 bg-primary dark:bg-primary-dark border-none">
                 <SheetHeader>
-                  <SheetTitle><Link href="/">Blog</Link></SheetTitle>
+                  <SheetTitle><Link href="/blog">Blog</Link></SheetTitle>
                   <SheetTitle><Link href="/">Portfolio</Link></SheetTitle>
                   <SheetTitle><Link href="/">About</Link></SheetTitle>
                   <div>

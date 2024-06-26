@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="ko">
-    <body>
+    <body className="bg-primary dark:bg-primary-dark">
     <Providers>
       <div
         className="transition-colors duration-100 bg-primary dark:bg-primary-dark flex flex-col min-h-screen text-text dark:text-text-dark">
