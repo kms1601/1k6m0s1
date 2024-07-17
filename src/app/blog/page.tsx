@@ -1,17 +1,11 @@
-import {getPostList} from "@/lib/post";
+import PostList from "@/components/PostList";
+
 
 const PostsPage = () => {
-  const postList = getPostList();
-
   return (
-    <ul>
-      {postList.map((post, i) => (
-        <li key={i}>
-          <p>{post.slug}</p>
-          <p>{post.category}</p>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <PostList></PostList>
+    </div>
   )
 }
 

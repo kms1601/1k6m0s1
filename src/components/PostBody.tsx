@@ -20,7 +20,7 @@ const options = {
 
 const PostBody = ({post} : {post: Post}) => {
   return (
-    <div className="prose">
+    <div className="prose-xl col-span-3 m-5">
       <MDXRemote source={post.content} components={mdxComponents} options={options}/>
     </div>
   );

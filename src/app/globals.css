@@ -74,7 +74,7 @@ http://scripts.sil.org/OFL
   src: local('Pretendard Thin'), url(../../public/fonts/Pretendard-Thin.woff2) format('woff2');
 }
 
-.prose pre {
+.prose-xl pre {
   padding: 0;
   @apply transition bg-secondary dark:bg-secondary-dark;
 }

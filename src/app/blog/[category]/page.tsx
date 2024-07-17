@@ -1,5 +1,6 @@
 import React from 'react';
 import {getCategoryList, Post} from "@/lib/post";
+import PostList from "@/components/PostList";
 
 interface Props {
   params: {
@@ -13,7 +14,7 @@ const Category = ({params: {category}}: Props) => {
 
   return (
     <div>
-      <p>{category}</p>
+      <PostList category={category}></PostList>
     </div>
   );
 };

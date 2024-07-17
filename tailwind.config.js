@@ -38,13 +38,21 @@ module.exports = {
         popover: "#f1e2eb",
         text: "#020617",
         warning: "#dd1313",
+        description: "#9f9f9f",
 
         // Dark mode
         "primary-dark": "#2b2d30",
         "secondary-dark": "#1f2023",
         "popover-dark": "#171919",
         "text-dark": "#f8fafc",
-      }
+      },
+      screens: {
+        "gridxs": "570px",
+        "grids": "768px",
+        "gridm": "920px",
+        "gridl": "1370px",
+        "gridxl": "1750px",
+      },
     },
   },
   plugins: [

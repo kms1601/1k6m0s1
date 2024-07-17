@@ -7,7 +7,6 @@ interface Header {
   title: string;
   description: string;
   date: string;
-  tags: string[];
   thumbnail: string;
 }
 
@@ -38,6 +37,12 @@ export const getPostList = (category?: string): Post[] => {
   return split.map((path) => {
     return getPost(path[7], path[8]);
   })
+}
+
+export const getPostCount = (category?: string): number => {
+  const folder = category || "**";
+  const paths: string[] = sync(`${POSTS_PATH}/${folder}/**/*.mdx`);
+  return paths.length;
 }
 
 export const getCategoryList = () => {

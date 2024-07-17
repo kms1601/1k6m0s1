@@ -1,23 +1,24 @@
 import {MDXComponents} from "mdx/types";
-import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import {extractCode} from "@/lib/utils";
+import Copy from "@/config/Copy";
 
-const H1 = (props: any) => <h1 className="text-4xl font-bold transition text-text dark:text-text-dark" {...props}></h1>
-const H2 = (props: any) => <h2 className="text-3xl font-bold transition text-text dark:text-text-dark" {...props}></h2>
-const H3 = (props: any) => <h3 className="text-2xl font-bold transition text-text dark:text-text-dark" {...props}></h3>
-const H4 = (props: any) => <h4 className="text-xl font-bold transition text-text dark:text-text-dark" {...props}></h4>
-const H5 = (props: any) => <h5 className="text-lg font-bold transition text-text dark:text-text-dark" {...props}></h5>
-const H6 = (props: any) => <h6 className="font-bold transition text-text text-md dark:text-text-dark" {...props}></h6>
+const H1 = (props: any) => <h1 className="text-4xl font-bold" {...props}></h1>
+const H2 = (props: any) => <h2 className="text-3xl font-bold" {...props}></h2>
+const H3 = (props: any) => <h3 className="text-2xl font-bold" {...props}></h3>
+const H4 = (props: any) => <h4 className="text-xl font-bold" {...props}></h4>
+const H5 = (props: any) => <h5 className="text-lg font-bold" {...props}></h5>
+const H6 = (props: any) => <h6 className="font-bold" {...props}></h6>
 
 const Pre = ({children}) => {
-
   let language: string = children.props.className.split("-")[1];
   language = language[0].toUpperCase() + language.slice(1);
+  const code = extractCode(children);
 
   return (
     <pre className="shadow-lg">
-      <div className="h-10 bg-popover dark:bg-popover-dark transition flex items-center justify-between">
+      <div className="h-10 bg-popover dark:bg-popover-dark transition flex items-center justify-between rounded-t-lg">
         <p className="text-text dark:text-text-dark ml-4">{language}</p>
-        <button className="text-text dark:text-text-dark mr-4">copy</button>
+        <Copy code={code}></Copy>
       </div>
       {children}
     </pre>

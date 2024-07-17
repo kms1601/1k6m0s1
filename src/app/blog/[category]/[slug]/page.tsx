@@ -19,9 +19,7 @@ const PostDetail = ({params: {category, slug}}: Props) => {
   }
 
   return (
-    <div>
-      <PostBody post={post}/>
-    </div>
+    <PostBody post={post}/>
   );
 };
 
