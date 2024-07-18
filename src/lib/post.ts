@@ -35,7 +35,7 @@ export const getPostList = (category?: string): Post[] => {
     return path.split("/");
   })
   return split.map((path) => {
-    return getPost(path[7], path[8]);
+    return getPost(path[path.length - 3], path[path.length - 2]);
   })
 }
 
