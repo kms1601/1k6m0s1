@@ -1,6 +1,7 @@
 import {MDXComponents} from "mdx/types";
 import {extractCode} from "@/lib/utils";
 import Copy from "@/config/Copy";
+import React, {ReactNode} from "react";
 
 const H1 = (props: any) => <h1 className="text-4xl font-bold text-text dark:text-text-dark" {...props}></h1>
 const H2 = (props: any) => <h2 className="text-3xl font-bold text-text dark:text-text-dark" {...props}></h2>
@@ -22,7 +23,7 @@ const Td = (props: any) => <td className="text-base text-text dark:text-text-dar
 
 const Hr = (props: any) => <hr className="mt-5 mb-10 border-description" {...props}></hr>
 
-const Pre = ({children}) => {
+const Pre = ({children} : { children: any }) => {
   let language: string = children.props.className.split("-")[1];
   language = language[0].toUpperCase() + language.slice(1);
   const code = extractCode(children);
@@ -59,5 +60,6 @@ export const mdxComponents: MDXComponents = {
 
   hr: Hr,
 
+  // @ts-ignore
   pre: Pre,
 }

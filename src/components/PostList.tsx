@@ -11,7 +11,7 @@ const PostList = ({category, posts}: {category?: string, posts: Post[]}) => {
   const {setCategory} = useCategory();
   useEffect(() => {
     setCategory({category: category});
-  }, []);
+  }, [category, setCategory]);
 
   return (
     <div className="flex justify-center">

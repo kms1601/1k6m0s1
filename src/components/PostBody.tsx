@@ -24,7 +24,7 @@ const PostBody = ({post}: { post: Post }) => {
     <div className="col-span-3 m-5 prose prose-2xl">
       <PostHeader post={post}/>
       <hr className="mt-0 border-t-2 border-description"/>
-      <MDXRemote source={post.content} components={mdxComponents} options={options}/>
+      <MDXRemote source={post.content} components={mdxComponents} options={options as any}/>
     </div>
   );
 };
