@@ -2,6 +2,11 @@
 const nextConfig = {
   async redirects() {
     return [
+      {
+        source: "/blog/All",
+        destination: "/blog",
+        permanent: true,
+      }
     ];
   },
 };

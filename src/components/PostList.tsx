@@ -1,9 +1,17 @@
-import React from 'react';
+"use client"
+
+import React, {useEffect} from 'react';
 import {getPostList, Post} from "@/lib/post";
 import PostCard from "@/components/PostCard";
+import useCategory from "@/hooks/useCategory";
 
-const PostList = ({category}: {category?: string}) => {
-  const posts = getPostList(category);
+const PostList = ({category, posts}: {category?: string, posts: Post[]}) => {
+  category = category || "All";
+
+  const {setCategory} = useCategory();
+  useEffect(() => {
+    setCategory({category: category});
+  }, []);
 
   return (
     <div className="flex justify-center">

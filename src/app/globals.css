@@ -74,7 +74,7 @@ http://scripts.sil.org/OFL
   src: local('Pretendard Thin'), url(../../public/fonts/Pretendard-Thin.woff2) format('woff2');
 }
 
-.prose-xl pre {
+.prose pre {
   padding: 0;
   @apply transition bg-secondary dark:bg-secondary-dark;
 }
@@ -83,7 +83,7 @@ http://scripts.sil.org/OFL
   display: block;
   overflow-x: auto;
   padding: 2em;
-  @apply text-[#24292e] dark:text-[#c9d1d9];
+  @apply text-[#24292e] dark:text-[#c9d1d9] text-sm;
 }
 .hljs-doctag,
 .hljs-keyword,
@@ -162,4 +162,3 @@ body {
   box-sizing: content-box;
   font-family: 'Pretendard', serif, monospace;
 }
-

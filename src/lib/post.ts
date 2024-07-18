@@ -40,8 +40,9 @@ export const getPostList = (category?: string): Post[] => {
 }
 
 export const getPostCount = (category?: string): number => {
-  const folder = category || "**";
-  const paths: string[] = sync(`${POSTS_PATH}/${folder}/**/*.mdx`);
+  if (category === "All" || category === undefined) category = "**"; // 모든 글 개수
+
+  const paths: string[] = sync(`${POSTS_PATH}/${category}/**/*.mdx`);
   return paths.length;
 }
 

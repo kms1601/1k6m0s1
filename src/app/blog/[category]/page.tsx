@@ -1,5 +1,5 @@
 import React from 'react';
-import {getCategoryList, Post} from "@/lib/post";
+import {getCategoryList, getPostList} from "@/lib/post";
 import PostList from "@/components/PostList";
 
 interface Props {
@@ -10,11 +10,12 @@ interface Props {
 
 export const dynamicParams = false;
 
-const Category = ({params: {category}}: Props) => {
+const CategoryPost = ({params: {category}}: Props) => {
+  const posts = getPostList(category);
 
   return (
     <div>
-      <PostList category={category}></PostList>
+      <PostList category={category} posts={posts}></PostList>
     </div>
   );
 };
@@ -24,4 +25,4 @@ export const generateStaticParams = () => {
   return categoryList.map((category) => ({category}));
 }
 
-export default Category;
+export default CategoryPost;
