@@ -1,10 +1,3 @@
----
-title: '1k6m0s1'
-description: '1k6m0s1에 대하여'
-date: '2024-07-19'
-thumbnail: '/thumbnail/1k6m0s1.png'
----
-
 ## 블로그 이름의 의미
 
 평소 사이트 회원가입 시 많이 사용하는 아이디(kms1601)를 변형한 것입니다.
