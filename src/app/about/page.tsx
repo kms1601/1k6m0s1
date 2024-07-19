@@ -1,9 +1,12 @@
 import React from 'react';
+import Nothing from "@/components/Nothing";
+import MenuBanner from "@/components/MenuBanner";
 
 const AboutPage = () => {
   return (
     <div>
-      <h2 className="text-center text-3xl font-bold mb-10">About</h2>
+      <MenuBanner title="About"/>
+      <Nothing/>
     </div>
   );
 };

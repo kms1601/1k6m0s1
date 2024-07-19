@@ -3,6 +3,7 @@ import CategoryList from "@/components/CategoryList";
 import {getCategoryList, getPostCount} from "@/lib/post";
 import CategoryListMobile from "@/components/CategoryListMobile";
 import Toc from "@/components/Toc";
+import MenuBanner from "@/components/MenuBanner";
 
 const BlogLayout = ({children}: Readonly<{ children: React.ReactNode; }>) => {
   const categories = getCategoryList().sort();
@@ -19,7 +20,7 @@ const BlogLayout = ({children}: Readonly<{ children: React.ReactNode; }>) => {
             <CategoryList categories={categories} count={count}/>
           </div>
           <div className="col-span-3" id="blog-body">
-            <h2 className="text-center text-5xl font-bold mb-10">Blog</h2>
+            <MenuBanner title="Blog"/>
             {children}
           </div>
           <div className="relative flex justify-center mt-20">
@@ -30,7 +31,7 @@ const BlogLayout = ({children}: Readonly<{ children: React.ReactNode; }>) => {
 
       {/*Mobile*/}
       <div className="block md:hidden">
-        <h2 className="text-center text-3xl font-bold mb-5">Blog</h2>
+        <MenuBanner title="Blog"/>
         <CategoryListMobile categories={categories} count={count}/>
         <div>
           {children}
