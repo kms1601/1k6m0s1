@@ -68,6 +68,8 @@ const Toc = ({className}: { className?: string }) => {
     }
   }, []);
 
+  if (toc.length === 0) return null;
+
   return (
     <div className={className}>
       {toc.map((e, i) => (
