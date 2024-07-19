@@ -1,11 +1,11 @@
 import {MDXComponents} from "mdx/types";
 import {extractCode} from "@/lib/utils";
 import Copy from "@/config/Copy";
-import React, {ReactNode} from "react";
+import React from "react";
 
 const H1 = (props: any) => <h1 className="text-4xl font-bold text-text dark:text-text-dark" {...props}></h1>
-const H2 = (props: any) => <h2 className="text-3xl font-bold text-text dark:text-text-dark" {...props}></h2>
-const H3 = (props: any) => <h3 className="text-2xl font-bold text-text dark:text-text-dark" {...props}></h3>
+const H2 = (props: any) => <h2 className="text-3xl font-bold text-text dark:text-text-dark scroll-mt-28" {...props}></h2>
+const H3 = (props: any) => <h3 className="text-2xl font-bold text-text dark:text-text-dark scroll-mt-28" {...props}></h3>
 const H4 = (props: any) => <h4 className="text-xl font-bold text-text dark:text-text-dark" {...props}></h4>
 const H5 = (props: any) => <h5 className="text-lg font-bold text-text dark:text-text-dark" {...props}></h5>
 const H6 = (props: any) => <h6 className="text-base font-bold text-text dark:text-text-dark" {...props}></h6>
