@@ -3,7 +3,7 @@ import {getPostList} from "@/lib/post";
 
 
 const BlogPage = () => {
-  const posts = getPostList();
+  const posts = getPostList().sort((a, b) => +new Date(b.header.date) - +new Date(a.header.date));
 
   return (
     <div>
