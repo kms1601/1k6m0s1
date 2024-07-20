@@ -26,7 +26,7 @@ const PostDetail = ({params: {category, slug}}: Props) => {
 export const generateStaticParams = () => {
   const postList = getPostList();
   return postList.map((post) => ({
-    category: post.category, slug: post.slug,
+    category: encodeURI(post.category), slug: encodeURI(post.slug),
   }));
 };
 

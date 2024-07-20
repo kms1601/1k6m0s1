@@ -54,6 +54,7 @@ const Toc = ({className}: { className?: string }) => {
       let hTags: Element[] = Array.from(document.querySelectorAll("h2[id], h3[id]"));
       hTags = hTags.slice(hTags.length / 2);
       setToc(hTags);
+      setCurrentId(hTags[0]?.id);
 
       hTags.forEach(tag => {
         intersectionObserver.observe(document.getElementById(tag.id) as HTMLHeadElement);
