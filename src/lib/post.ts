@@ -21,6 +21,8 @@ export interface Post {
 
 // path : src/posts/{category}/{slug}/README.md
 export const getPost = (category: string, slug: string): Post => {
+  category = decodeURI(category)
+  slug = decodeURI(slug);
   const path = decodeURI(`${POSTS_PATH}/${category}/${slug}/content.mdx`);
 
   const {data, content} = matter(fs.readFileSync(path, "utf-8"));
