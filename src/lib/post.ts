@@ -32,7 +32,8 @@ export const getPost = (category: string, slug: string): Post => {
 }
 
 export const getPostList = (category?: string): Post[] => {
-  const folder = decodeURI(category || "**");
+  category = category || "**";
+  const folder = decodeURI(category);
   const paths: string[] = sync(`${POSTS_PATH}/${folder}/**/*.mdx`);
   const split = paths.map((path) => {
     return encodeURI(path).split("/");

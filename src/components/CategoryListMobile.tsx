@@ -16,19 +16,9 @@ const CategoryListMobile = ({categories, count}: { categories: string[], count: 
           <AccordionContent>
             <div className="grid grid-cols-4 text-center">
               {categories.map((cat, i) => (
-                cat === category.category
-                  ?
-                  <p key={i}>
-                    <Link href={`/blog/${cat}`} key={i} className="inline-block font-bold hover:text-description">
-                      ∙ {decodeURI(cat.charAt(0).toUpperCase() + cat.slice(1)).replaceAll("_", " ")} ({count[i]})
-                    </Link>
-                  </p>
-                  :
-                  <p key={i}>
-                    <Link href={`/blog/${cat}`} key={i} className="inline-block hover:text-description">
-                      {decodeURI(cat.charAt(0).toUpperCase() + cat.slice(1)).replaceAll("_", " ")} ({count[i]})
-                    </Link>
-                  </p>
+                <p key={i}>
+                  <Link href={`/blog/${cat}`}><li className={`${decodeURI(cat) === category.category ? "font-bold" : ""} hover:text-description`}>{decodeURI(cat.charAt(0).toUpperCase() + cat.slice(1)).replaceAll("_", " ")} ({count[i]})</li></Link>
+                </p>
               ))}
             </div>
           </AccordionContent>
