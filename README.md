@@ -32,7 +32,7 @@
 
 - MDX 파싱 - [Next-MDX-Remote](https://github.com/hashicorp/next-mdx-remote#react-server-components-rsc--nextjs-app-directory-support)
 
--  ~~반응, 댓글 - [Giscus](https://giscus.app/)~~
+-  반응, 댓글 - [Giscus](https://giscus.app/)
 
 - 배포 - [Vercel](https://vercel.com/)
 
@@ -42,7 +42,7 @@
 
 - ~~메인 화면, 요약~~
 - 게시글 목록, 상세 페이지
-- ~~반응, 댓글~~
+- 반응, 댓글
 - 카테고리
 - ~~게시글 검색, 정렬~~
 - ~~포트폴리오~~
