@@ -14,7 +14,7 @@ const CategoryList = ({categories, count}: {categories: string[], count: number[
       <hr className="w-32 pb-3 border-description border-t"/>
       <ul>
         {categories.map((cat, i) => (
-          <Link href={`/blog/${cat}`} key={i}><li className={`${decodeURI(cat) === category.category ? "font-bold" : ""} hover:text-description`}>{decodeURI(cat) === category.category ? "∙" : ""} {decodeURI(cat.charAt(0).toUpperCase() + cat.slice(1)).replaceAll("_", " ")} ({count[i]})</li></Link>
+          <Link href={`/blog/${cat}`} key={i}><li className={`${cat === category.category ? "font-bold" : ""} hover:text-description`}>{cat === category.category ? "∙" : ""} {cat.charAt(0).toUpperCase() + cat.slice(1).replaceAll("_", " ")} ({count[i]})</li></Link>
         ))}
       </ul>
     </div>

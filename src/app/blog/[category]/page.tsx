@@ -11,7 +11,7 @@ interface Props {
 export const dynamicParams = false;
 
 const CategoryPost = ({params: {category}}: Props) => {
-  const posts = getPostList(category).sort((a, b) => +new Date(b.header.date) - +new Date(a.header.date));
+  const posts = getPostList(decodeURI(category)).sort((a, b) => +new Date(b.header.date) - +new Date(a.header.date));
 
   return (
     <div>
@@ -22,7 +22,9 @@ const CategoryPost = ({params: {category}}: Props) => {
 
 export const generateStaticParams = () => {
   const categoryList = getCategoryList();
-  return categoryList.map((category) => ({category}));
+  return categoryList.map((category) => {
+    return {category}
+  });
 }
 
 export default CategoryPost;

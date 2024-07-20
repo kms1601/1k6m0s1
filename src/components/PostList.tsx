@@ -6,7 +6,7 @@ import PostCard from "@/components/PostCard";
 import useCategory from "@/hooks/useCategory";
 
 const PostList = ({category, posts}: {category?: string, posts: Post[]}) => {
-  category = decodeURI(category || "All");
+  category = category || "All";
 
   const {setCategory} = useCategory();
   useEffect(() => {

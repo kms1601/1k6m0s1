@@ -12,7 +12,7 @@ type Props = {
 export const dynamicParams = false;
 
 const PostDetail = ({params: {category, slug}}: Props) => {
-  const post = getPost(category, slug);
+  const post = getPost(decodeURI(category), decodeURI(slug));
 
   if (!post) {
     return null;
@@ -25,9 +25,9 @@ const PostDetail = ({params: {category, slug}}: Props) => {
 
 export const generateStaticParams = () => {
   const postList = getPostList();
-  return postList.map((post) => ({
-    category: encodeURI(post.category), slug: encodeURI(post.slug),
-  }));
+  return postList.map((post) => {
+    return { category: post.category, slug: post.slug}
+  });
 };
 
 export default PostDetail;
