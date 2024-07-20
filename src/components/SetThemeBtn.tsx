@@ -7,11 +7,6 @@ import {Laptop, Moon, Sun} from "lucide-react";
 
 const SetThemeBtn = () => {
   const {systemTheme, theme, setTheme} = useTheme();
-  const currentTheme = theme === "system" ? systemTheme : theme
-
-  const setThemeTo = (t: string) => {
-    setTheme(t);
-  }
 
   return (
     <DropdownMenu>

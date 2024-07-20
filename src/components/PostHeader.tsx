@@ -3,7 +3,7 @@ import {getHashTags, Post} from "@/lib/post";
 import Hashtag from "@/components/Hashtag";
 import Image from "next/image";
 
-const PostHeader = ({post} : {post: Post}) => {
+const PostHeader = ({post}: { post: Post }) => {
   const hashtags = getHashTags(post);
 
   return (
