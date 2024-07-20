@@ -13,6 +13,8 @@ export const dynamicParams = false;
 const CategoryPost = ({params: {category}}: Props) => {
   const posts = getPostList(category);
 
+  console.log(posts);
+
   return (
     <div>
       <PostList category={category} posts={posts}></PostList>
