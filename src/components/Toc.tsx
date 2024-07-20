@@ -47,7 +47,7 @@ const Toc = ({className}: { className?: string }) => {
         }
       });
     }, {
-      rootMargin: "-150px 0px 0px 0px"
+      rootMargin: "-147px 0px 0px 0px"
     });
 
     const updateHeadings = () => {
@@ -73,9 +73,7 @@ const Toc = ({className}: { className?: string }) => {
   return (
     <div className={className}>
       {toc.map((e, i) => (
-        currentId == e.id
-          ? <TocElement element={e} key={i} className="mb-2 font-bold"/>
-          : <TocElement element={e} key={i} className="mb-2"/>
+        <TocElement element={e} key={i} className={`mb-2 transition-all h-6 ${e.id === currentId ? "font-bold text-md" : "text-sm"}`}/>
       ))}
     </div>
   );

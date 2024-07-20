@@ -20,13 +20,13 @@ const CategoryListMobile = ({categories, count}: { categories: string[], count: 
                   ?
                   <p key={i}>
                     <Link href={`/blog/${cat}`} key={i} className="inline-block font-bold hover:text-description">
-                      ∙ {cat.charAt(0).toUpperCase() + cat.slice(1)} ({count[i]})
+                      ∙ {decodeURI(cat.charAt(0).toUpperCase() + cat.slice(1)).replaceAll("_", " ")} ({count[i]})
                     </Link>
                   </p>
                   :
                   <p key={i}>
                     <Link href={`/blog/${cat}`} key={i} className="inline-block hover:text-description">
-                      {cat.charAt(0).toUpperCase() + cat.slice(1)} ({count[i]})
+                      {decodeURI(cat.charAt(0).toUpperCase() + cat.slice(1)).replaceAll("_", " ")} ({count[i]})
                     </Link>
                   </p>
               ))}

@@ -23,8 +23,8 @@ const BlogLayout = ({children}: Readonly<{ children: React.ReactNode; }>) => {
             <MenuBanner title="Blog"/>
             {children}
           </div>
-          <div className="relative flex justify-center mt-20">
-            <Toc className="fixed border-l-2 p-3"/>
+          <div className="relative mt-20 flex w-60 justify-center">
+            <Toc className="fixed w-60 border-l-2 pl-2"/>
           </div>
         </div>
       </div>
