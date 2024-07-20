@@ -17,7 +17,13 @@ const CategoryListMobile = ({categories, count}: { categories: string[], count: 
             <div className="grid grid-cols-4 text-center">
               {categories.map((cat, i) => (
                 <p key={i}>
-                  <Link href={`/blog/${cat}`} key={i} className={`${cat === category.category ? "font-bold" : ""} hover:text-description`}>{cat === category.category ? "∙" : ""} {cat.charAt(0).toUpperCase() + cat.slice(1).replaceAll("_", " ")} ({count[i]})</Link>
+                  <Link
+                    href={`/blog/${cat}`}
+                    className={`${cat === category.category ? "font-bold" : ""} hover:text-description mb-2`}>
+                    {cat === category.category ? "∙" : ""}
+                    &nbsp;{cat.charAt(0).toUpperCase() + cat.slice(1).replaceAll("_", " ")}
+                    &nbsp;({count[i]})
+                  </Link>
                 </p>
               ))}
             </div>

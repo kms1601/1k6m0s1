@@ -9,7 +9,7 @@ interface CategoryState {
 }
 
 interface CategoryActions {
-  setCategory: (userinfo: CategoryType) => void;
+  setCategory: (category: CategoryType) => void;
 }
 
 const defaultState = { category: "All" };

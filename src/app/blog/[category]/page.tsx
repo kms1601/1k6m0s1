@@ -1,6 +1,7 @@
 import React from 'react';
-import {getCategoryList, getPostList} from "@/lib/post";
+import {getCategoryList, getPostList, Post} from "@/lib/post";
 import PostList from "@/components/PostList";
+import * as process from "node:process";
 
 interface Props {
   params: {
@@ -22,8 +23,12 @@ const CategoryPost = ({params: {category}}: Props) => {
 
 export const generateStaticParams = () => {
   const categoryList = getCategoryList();
+
   return categoryList.map((category) => {
-    return {category}
+    if (process.env.NODE_ENV !== "production") {
+      return {category: encodeURI(category)};
+    }
+    return {category};
   });
 }
 

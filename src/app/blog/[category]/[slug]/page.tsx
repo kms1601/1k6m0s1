@@ -1,6 +1,7 @@
 import React from 'react';
 import {getPost, getPostList} from "@/lib/post";
 import PostBody from "@/components/PostBody";
+import process from "node:process";
 
 type Props = {
   params: {
@@ -26,8 +27,11 @@ const PostDetail = ({params: {category, slug}}: Props) => {
 export const generateStaticParams = () => {
   const postList = getPostList();
   return postList.map((post) => {
-    return { category: post.category, slug: post.slug}
-  });
+    if (process.env.NODE_ENV !== "production") {
+      return {category: encodeURI(post.category), slug: encodeURI(post.slug)};
+    }
+    return {category: post.category, slug: post.slug}
+});
 };
 
 export default PostDetail;
