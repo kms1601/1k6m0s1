@@ -1,3 +1,9 @@
+# 1k6m0s1
+
+1k6m0s1에 방문하신 여러분을 환영합니다!
+
+---
+
 ## 블로그 이름의 의미
 
 평소 사이트 회원가입 시 많이 사용하는 아이디(kms1601)를 변형한 것입니다.
@@ -30,11 +36,13 @@
 
 - 디자인 - [Tailwind CSS](https://tailwindcss.com/)
 
-- MDX 파싱 - [Next-MDX-Remote](https://github.com/hashicorp/next-mdx-remote#react-server-components-rsc--nextjs-app-directory-support)
+- MDX 파싱 - [Next-MDX-Remote](https://github.com/hashicorp/next-mdx-remote#)
 
--  반응, 댓글 - [Giscus](https://giscus.app/)
+- 반응, 댓글 - [Giscus](https://giscus.app/)
 
 - 배포 - [Vercel](https://vercel.com/)
+
+- 개발 도구 - [WebStorm](https://www.jetbrains.com/webstorm/), [VSCode](https://code.visualstudio.com/)
 
 ---
 
@@ -48,3 +56,5 @@
 - ~~포트폴리오~~
 - ~~나의 정보~~
 - ~~해시태그 검색~~
+
+---
