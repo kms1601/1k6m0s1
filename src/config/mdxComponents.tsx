@@ -24,10 +24,8 @@ const Td = (props: any) => <td className="text-base text-text dark:text-text-dar
 
 const Hr = (props: any) => <hr className="mt-5 mb-10 border-description" {...props}></hr>
 
-const Img = (props: any) => <div className="flex justify-center">
-  {/* eslint-disable-next-line jsx-a11y/alt-text */}
-  <Image {...props} className="rounded-lg" width="600" height="400"/>
-</div>
+// eslint-disable-next-line jsx-a11y/alt-text
+const Img = (props: any) => <Image {...props} className="rounded-lg flex justify-center" width="600" height="400"/>
 
 const Pre = ({children} : { children: any }) => {
   let language: string = children.props.className.split("-")[1];

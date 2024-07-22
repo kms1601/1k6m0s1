@@ -20,6 +20,7 @@ const PostHeader = ({post}: { post: Post }) => {
           width={600}
           height={400}
           className="rounded-lg mt-3"
+          priority={true}
         />
       </div>
     </div>
