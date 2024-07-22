@@ -5,8 +5,10 @@ import React from "react";
 import Image from "next/image";
 
 const H1 = (props: any) => <h1 className="text-4xl font-bold text-text dark:text-text-dark" {...props}></h1>
-const H2 = (props: any) => <h2 className="text-3xl font-bold text-text dark:text-text-dark scroll-mt-28" {...props}></h2>
-const H3 = (props: any) => <h3 className="text-2xl font-bold text-text dark:text-text-dark scroll-mt-28" {...props}></h3>
+const H2 = (props: any) => <h2
+  className="scroll-mt-28 text-3xl font-bold text-text dark:text-text-dark" {...props}></h2>
+const H3 = (props: any) => <h3
+  className="scroll-mt-28 text-2xl font-bold text-text dark:text-text-dark" {...props}></h3>
 const H4 = (props: any) => <h4 className="text-xl font-bold text-text dark:text-text-dark" {...props}></h4>
 const H5 = (props: any) => <h5 className="text-lg font-bold text-text dark:text-text-dark" {...props}></h5>
 const H6 = (props: any) => <h6 className="text-base font-bold text-text dark:text-text-dark" {...props}></h6>
@@ -19,15 +21,16 @@ const A = (props: any) => <a className="text-text dark:text-text-dark" {...props
 
 const Strong = (props: any) => <strong className="text-text dark:text-text-dark" {...props}></strong>
 
-const Th = (props: any) => <th className="text-md text-text dark:text-text-dark text-left" {...props}></th>
-const Td = (props: any) => <td className="text-base text-text dark:text-text-dark text-left" {...props}></td>
+const Table = (props: any) => <table className="table-auto border-collapse bg-secondary dark:bg-secondary-dark rounded-xl" {...props}></table>
+const Th = (props: any) => <th className="border-2 p-2 text-left text-md border-primary dark:border-primary-dark text-text dark:text-text-dark" {...props}></th>
+const Td = (props: any) => <td className="border-2 p-2 text-left text-base border-primary dark:border-primary-dark text-text dark:text-text-dark" {...props}></td>
 
 const Hr = (props: any) => <hr className="mt-5 mb-10 border-description" {...props}></hr>
 
 // eslint-disable-next-line jsx-a11y/alt-text
-const Img = (props: any) => <Image {...props} className="rounded-lg flex justify-center" width="600" height="400"/>
+const Img = (props: any) => <Image {...props} className="flex justify-center rounded-lg" width="600" height="400"/>
 
-const Pre = ({children} : { children: any }) => {
+const Pre = ({children}: { children: any }) => {
   let language: string = children.props.className.split("-")[1];
   language = language[0].toUpperCase() + language.slice(1);
   const code = extractCode(children);
@@ -59,6 +62,7 @@ export const mdxComponents: MDXComponents = {
 
   strong: Strong,
 
+  table: Table,
   th: Th,
   td: Td,
 
