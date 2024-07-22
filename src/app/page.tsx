@@ -1,8 +1,21 @@
+import BlogIndex from "@/components/BlogIndex";
+import AboutIndex from "@/components/AboutIndex";
+
 const Index = () => {
   return (
-    <div className="text-center">
-      <div className="h-56">아직 블로그만 구현되어있습니다!</div>
-    </div>
+    <>
+      {/*Desktop*/}
+      <div className="mr-10 ml-10 hidden grid-cols-4 grid-rows-2 gap-4 md:grid">
+        <div className="col-span-1 md:col-span-3"><BlogIndex/></div>
+        <div className="col-span-1"><AboutIndex/></div>
+      </div>
+
+      {/*Mobile*/}
+      <div className="block md:hidden">
+        <BlogIndex/>
+        <AboutIndex/>
+      </div>
+    </>
   );
 }
 

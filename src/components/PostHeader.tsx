@@ -12,7 +12,7 @@ const PostHeader = ({post}: { post: Post }) => {
           id={post.header.title.replace(" ", "-")}>{post.header.title}</h1>
       <p className="text-base text-text dark:text-text-dark">{post.header.description}</p>
       <Hashtag hashtags={hashtags}/>
-      <p className="text-end text-sm italic text-description mt-0">{post.header.date}</p>
+      <p className="text-left ml-10 text-sm italic text-description mt-0">{post.header.date}</p>
       <div className="flex justify-center">
         <Image
           src={post.header.thumbnail}
