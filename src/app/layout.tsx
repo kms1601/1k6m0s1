@@ -8,6 +8,9 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: SITE_NAME,
   description: DESCRIPTION,
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
