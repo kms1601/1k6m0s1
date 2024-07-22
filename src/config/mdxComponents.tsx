@@ -19,8 +19,8 @@ const A = (props: any) => <a className="text-text dark:text-text-dark" {...props
 
 const Strong = (props: any) => <strong className="text-text dark:text-text-dark" {...props}></strong>
 
-const Th = (props: any) => <th className="text-md text-text dark:text-text-dark" {...props}></th>
-const Td = (props: any) => <td className="text-base text-text dark:text-text-dark" {...props}></td>
+const Th = (props: any) => <th className="text-md text-text dark:text-text-dark text-left" {...props}></th>
+const Td = (props: any) => <td className="text-base text-text dark:text-text-dark text-left" {...props}></td>
 
 const Hr = (props: any) => <hr className="mt-5 mb-10 border-description" {...props}></hr>
 
