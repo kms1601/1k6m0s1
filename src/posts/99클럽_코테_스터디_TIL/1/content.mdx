@@ -1,0 +1,100 @@
+---
+title: '[99클럽 코테 스터디] - 1일차 TIL'
+description: '99클럽 코테 스터디 첫날, 1일차 문제'
+date: '2024-07-22'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## TIL이란?
+
+&nbsp;오늘은 드디어 99클럽 코테 스터디 TIL 작성 첫날이다.TIL은 Today I Learned의 약자로 오늘 배운 것이란 의미이다.
+
+&nbsp;꾸준히 작성해서 선물도 받아 가고 나의 학습 기록도 남길 수 있는 좋은 기회이므로 열심히 해봐야겠다.
+
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.2 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/154539" target="_blank" className="a-mdx">뒤에 있는 큰 수 찾기</a>]
+
+### 풀이 과정
+
+#### Brute Force
+
+&nbsp;일단 가장 직관적인 풀이는 brute force로 전부 확인해 보는 것이다. 배열을 모든 값을 순회하면서 그 값의 다음 숫자 중, 처음으로 나오는 더 큰 숫자가 있다면 그 숫자가 '뒷 큰수'가 된다. 코드로 작성하면 다음과 같다.
+
+```java
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] numbers) {
+        int[] answer = new int[numbers.length]; // 정답을 저장 배열
+        Arrays.fill(answer, -1); // 정답이 입력되지 않으면 '뒷 큰수'가 없는 것이다
+
+        loop:
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = i + 1; j < numbers.length; j++) {
+                if (numbers[i] < numbers[j]) {
+                    answer[i] = numbers[j];
+                    continue loop; // '뒷 큰수'를 찾았으면 더 이상 볼 필요 없음
+                }
+            }
+        }
+        return answer;
+    }
+}
+```
+&nbsp;하지만 brute force로 풀면 시간복잡도는 대략 O(N<sup>2</sup>)이 되는데, 배열의 크기는 1,000,000이다. 즉, TO이 발생 할 것으로 예상된다. 실제로 제출해 본 결과, 20 ~ 23TC에서 TO이 발생하였다. 그러므로 brute force가 아닌 다른 알고리즘을 사용해야 한다.
+
+#### Stack
+
+&nbsp;이 문제는 stack을 사용하면 시간복잡도를 대략 O(N)으로 줄일 수 있다. 알고리즘은 다음과 같다.
+
+1. stack이 비어있지 않고 stack의 맨 위 인덱스 값이 현재 인덱스 값보다 작을 때까지
+    - stack에서 맨 위 값을 제거하고 해당 인덱스 값의 정답을 현재 인덱스 값으로 한다.
+2. 현재 인덱스 값을 stack에 넣는다.
+3. 모든 인덱스를 순회할 때까지 1, 2를 반복한다.
+4. stack에 남은 값은 '뒷 큰수'가 없는 인덱스 값이므로 정답을 -1로 한다.
+
+&nbsp;해당 알고리즘으로 코드를 짜면 다음과 같다.
+
+```java
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] numbers) {
+        Stack<Integer> stack = new Stack<>();
+        int[] answer = new int[numbers.length];
+
+        for (int i = 0; i < numbers.length; i++) {
+            int number = numbers[i];
+            while (!stack.isEmpty() && numbers[stack.peek()] < number)
+                answer[stack.pop()] = number;
+            stack.push(i);
+        }
+
+        while (!stack.isEmpty()) // stack에 남은 값은 '뒷 큰수'가 없음
+            answer[stack.pop()] = -1;
+        return answer;
+    }
+}
+```
+
+### 정리
+
+&nbsp;이 문제를 푸는데 00:16:28가 걸렸다. 그렇게 엄청 어려운 문제는 아니였지만 stack 자료구조에 대한 지식과 이해가 없다면 조금 어려운 문제가 아니였을까 생각이 든다. 자료구조 관련 문제는 코딩테스트에서 빈출되는 유형이고 다양한 알고리즘에서 활용되므로 항상 여러 자료구조를 복습하고 적용하는 연습을 해야할 것 같다.
+
+---
+
+## 오늘의 스터디
+
+&nbsp;매주 월요일과 목요일 저녁 9시에 '게더타운'이라는 메타버스에서 정기 스터디를 진행한다.
+
+![image1](https://drive.google.com/thumbnail?id=10WHoQoYYYE4BA342Rh_9xJ5THHUDBYWO&sz=w1000)
+
+![image2](https://drive.google.com/thumbnail?id=1bFcJkSYOSUtvAHE3jYBfgizxi7gAYE46&sz=w1000)
+
+![image3](https://drive.google.com/thumbnail?id=1_6ZGuUXDDesaZLH9aQgt9xSwrt_dBW2c&sz=w1000)
+
+### 오늘 배운 것
+
+&nbsp;오늘은 첫날이라 오리엔테이션을 진행하였고 간단한 소개, 스터디 운영 방식, 페어 프로그래밍 시연, Q&A를 진행하였다. 스터디는 페어 프로그래밍 방식으로 진행한다는데 한번도 해본적 없는 방식이라 기대가 되기도 하지만, 잘할 수 있을지 걱정이 되기도 한다.
