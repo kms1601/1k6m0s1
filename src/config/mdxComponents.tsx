@@ -2,6 +2,7 @@ import {MDXComponents} from "mdx/types";
 import {extractCode} from "@/lib/utils";
 import Copy from "@/config/Copy";
 import React from "react";
+import Image from "next/image";
 
 const H1 = (props: any) => <h1 className="text-4xl font-bold text-text dark:text-text-dark" {...props}></h1>
 const H2 = (props: any) => <h2 className="text-3xl font-bold text-text dark:text-text-dark scroll-mt-28" {...props}></h2>
@@ -22,6 +23,11 @@ const Th = (props: any) => <th className="text-md text-text dark:text-text-dark"
 const Td = (props: any) => <td className="text-base text-text dark:text-text-dark" {...props}></td>
 
 const Hr = (props: any) => <hr className="mt-5 mb-10 border-description" {...props}></hr>
+
+const Img = (props: any) => <div className="flex justify-center">
+  {/* eslint-disable-next-line jsx-a11y/alt-text */}
+  <Image {...props} className="rounded-lg" width="600" height="400"/>
+</div>
 
 const Pre = ({children} : { children: any }) => {
   let language: string = children.props.className.split("-")[1];
@@ -59,6 +65,8 @@ export const mdxComponents: MDXComponents = {
   td: Td,
 
   hr: Hr,
+
+  img: Img,
 
   // @ts-ignore
   pre: Pre,

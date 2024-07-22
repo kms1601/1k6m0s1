@@ -16,7 +16,7 @@ const PostHeader = ({post}: { post: Post }) => {
       <div className="flex justify-center">
         <Image
           src={post.header.thumbnail}
-          alt="Thumbnail"
+          alt="thumbnail"
           width={600}
           height={400}
           className="rounded-lg mt-3"
