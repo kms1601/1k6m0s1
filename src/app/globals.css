@@ -162,3 +162,7 @@ body {
   box-sizing: content-box;
   font-family: 'Pretendard', serif, monospace;
 }
+
+.a-mdx {
+  @apply text-text dark:text-text-dark;
+}

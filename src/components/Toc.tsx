@@ -39,7 +39,7 @@ const Toc = ({className}: { className?: string }) => {
 
     // ToC 위치 확인
     const intersectionObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
+      entries.forEach((entry, i) => {
         checkScrollDirection();
         // 아래로 스크롤: 화면에서 빠져나갔을 때. 위로 스크롤: 화면에 들어왔을 때.
         if ((direction === 'down' && !entry.isIntersecting) || (direction === 'up' && entry.isIntersecting)) {
@@ -54,7 +54,6 @@ const Toc = ({className}: { className?: string }) => {
       let hTags: Element[] = Array.from(document.querySelectorAll("h2[id], h3[id]"));
       hTags = hTags.slice(hTags.length / 2);
       setToc(hTags);
-      setCurrentId(hTags[0]?.id);
 
       hTags.forEach(tag => {
         intersectionObserver.observe(document.getElementById(tag.id) as HTMLHeadElement);
