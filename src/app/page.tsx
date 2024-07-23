@@ -5,7 +5,7 @@ const Index = () => {
   return (
     <>
       {/*Desktop*/}
-      <div className="mr-10 ml-10 hidden grid-cols-4 grid-rows-2 gap-4 md:grid">
+      <div className="mr-10 ml-10 hidden grid-cols-4 gap-4 md:grid">
         <div className="col-span-1 md:col-span-3"><BlogIndex/></div>
         <div className="col-span-1"><AboutIndex/></div>
       </div>
