@@ -36,7 +36,7 @@ const BlogIndex = () => {
       {/*Mobile*/}
       <div className="block md:hidden">
         <h1 className="mt-5 text-center text-4xl font-bold">Blog</h1>
-        <hr className="mt-4 mb-4 border-2 border-popover dark:border-popover-dark"/>
+        <hr className="mt-4 w-10/12 mx-auto mb-4 border-2 border-popover dark:border-popover-dark"/>
         <p className="mb-5 text-center">최근 작성한 글</p>
         <div className="flex flex-col items-center p-10">
           <Image src={post.header.thumbnail} alt="thmubnail" width="600" height="400"/>
