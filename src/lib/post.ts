@@ -24,6 +24,7 @@ export const getPost = (category: string, slug: string): Post => {
   const path = `${POSTS_PATH}/${category}/${slug}/content.mdx`;
 
   const {data, content} = matter(fs.readFileSync(path, "utf-8"));
+
   const header = data as Header;
 
   return {header, category, slug, path, content};

@@ -12,10 +12,14 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-        {
-          protocol: "https",
-          hostname: 'drive.google.com',
-        }
+      {
+        protocol: "https",
+        hostname: "drive.google.com",
+      },
+      {
+        protocol: "https",
+        hostname: "grepp-programmers.s3.ap-northeast-2.amazonaws.com"
+      },
     ],
   },
 };

@@ -15,15 +15,16 @@ const H6 = (props: any) => <h6 className="text-base font-bold text-text dark:tex
 
 const P = (props: any) => <p className="text-base text-text dark:text-text-dark" {...props}></p>
 
+const Ul = (props: any) => <ul className="mt-0" {...props}></ul>
 const Li = (props: any) => <li className="text-base text-text dark:text-text-dark" {...props}></li>
 
 const A = (props: any) => <a className="text-text dark:text-text-dark" {...props}></a>
 
 const Strong = (props: any) => <strong className="text-text dark:text-text-dark" {...props}></strong>
 
-const Table = (props: any) => <table className="table-auto border-collapse bg-secondary dark:bg-secondary-dark rounded-xl" {...props}></table>
-const Th = (props: any) => <th className="border-2 p-2 text-left text-md border-primary dark:border-primary-dark text-text dark:text-text-dark" {...props}></th>
-const Td = (props: any) => <td className="border-2 p-2 text-left text-base border-primary dark:border-primary-dark text-text dark:text-text-dark" {...props}></td>
+const Table = (props: any) => <table className="w-auto border-collapse rounded-xl bg-secondary dark:bg-secondary-dark" {...props}></table>
+const Th = (props: any) => <th className="border-2 p-2 text-left text-md border-primary text-text dark:border-primary-dark dark:text-text-dark" {...props}></th>
+const Td = (props: any) => <td className="border-2 p-2 text-left text-base border-primary text-text dark:border-primary-dark dark:text-text-dark" {...props}></td>
 
 const Hr = (props: any) => <hr className="mt-5 mb-10 border-description" {...props}></hr>
 
@@ -56,6 +57,7 @@ export const mdxComponents: MDXComponents = {
 
   p: P,
 
+  ul: Ul,
   li: Li,
 
   a: A,
