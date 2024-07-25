@@ -1,0 +1,150 @@
+---
+title: '[99클럽 코테 스터디] - 4일차 TIL'
+description: '4일차 문제 [문자열 압축]'
+date: '2024-07-25'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.2 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/60057" target="_blank" className="a-mdx">문자열 압축</a>]
+
+### 문제 설명
+
+데이터 처리 전문가가 되고 싶은 "어피치"는 문자열을 압축하는 방법에 대해 공부를 하고 있습니다. 최근에 대량의 데이터 처리를 위한 간단한 비손실 압축 방법에 대해 공부를 하고 있는데, 문자열에서 같은 값이 연속해서 나타나는 것을 그 문자의 개수와 반복되는 값으로 표현하여 더 짧은 문자열로 줄여서 표현하는 알고리즘을 공부하고 있습니다.
+간단한 예로 "aabbaccc"의 경우 "2a2ba3c"(문자가 반복되지 않아 한번만 나타난 경우 1은 생략함)와 같이 표현할 수 있는데, 이러한 방식은 반복되는 문자가 적은 경우 압축률이 낮다는 단점이 있습니다. 예를 들면, "abcabcdede"와 같은 문자열은 전혀 압축되지 않습니다. "어피치"는 이러한 단점을 해결하기 위해 문자열을 1개 이상의 단위로 잘라서 압축하여 더 짧은 문자열로 표현할 수 있는지 방법을 찾아보려고 합니다.
+
+예를 들어, "ababcdcdababcdcd"의 경우 문자를 1개 단위로 자르면 전혀 압축되지 않지만, 2개 단위로 잘라서 압축한다면 "2ab2cd2ab2cd"로 표현할 수 있습니다. 다른 방법으로 8개 단위로 잘라서 압축한다면 "2ababcdcd"로 표현할 수 있으며, 이때가 가장 짧게 압축하여 표현할 수 있는 방법입니다.
+
+다른 예로, "abcabcdede"와 같은 경우, 문자를 2개 단위로 잘라서 압축하면 "abcabc2de"가 되지만, 3개 단위로 자른다면 "2abcdede"가 되어 3개 단위가 가장 짧은 압축 방법이 됩니다. 이때 3개 단위로 자르고 마지막에 남는 문자열은 그대로 붙여주면 됩니다.
+
+압축할 문자열 s가 매개변수로 주어질 때, 위에 설명한 방법으로 1개 이상 단위로 문자열을 잘라 압축하여 표현한 문자열 중 가장 짧은 것의 길이를 return 하도록 solution 함수를 완성해주세요.
+
+### 제한사항
+
+- s의 길이는 1 이상 1,000 이하입니다.
+- s는 알파벳 소문자로만 이루어져 있습니다.
+
+### 입출력 예
+
+| s                          | result |
+|----------------------------|--------|
+| "aabbaccc"                 | 7      |
+| "ababcdcdababcdcd"         | 9      |
+| "abcabcdede"               | 8      |
+| "abcabcabcabcdededededede" | 14     |
+| "xababcdcdababcdcd"        | 17     |
+
+### 입출력 예에 대한 설명
+
+입출력 예 #1
+
+문자열을 1개 단위로 잘라 압축했을 때 가장 짧습니다.
+
+입출력 예 #2
+
+문자열을 8개 단위로 잘라 압축했을 때 가장 짧습니다.
+
+입출력 예 #3
+
+문자열을 3개 단위로 잘라 압축했을 때 가장 짧습니다.
+
+입출력 예 #4
+
+문자열을 2개 단위로 자르면 "abcabcabcabc6de" 가 됩니다.
+문자열을 3개 단위로 자르면 "4abcdededededede" 가 됩니다.
+문자열을 4개 단위로 자르면 "abcabcabcabc3dede" 가 됩니다.
+문자열을 6개 단위로 자를 경우 "2abcabc2dedede"가 되며, 이때의 길이가 14로 가장 짧습니다.
+
+입출력 예 #5
+
+문자열은 제일 앞부터 정해진 길이만큼 잘라야 합니다.
+따라서 주어진 문자열을 x / ababcdcd / ababcdcd 로 자르는 것은 불가능 합니다.
+이 경우 어떻게 문자열을 잘라도 압축되지 않으므로 가장 짧은 길이는 17이 됩니다.
+
+---
+
+## 풀이 과정
+
+### Brute Force
+
+brute force로 문자열을 자를 수 있는 모든 단위에 대해 압축의 결과를 구한 뒤 가장 짧은 것의 길이를 return하면 된다. 단위는 문자열 길이의 절반까지만 확인하면 된다(절반보다 클 경우 압축 결과가 원본과 같음).
+
+#### 정답
+
+```java
+import java.util.*;
+
+class Solution {
+    public int solution(String s) {
+        String originalS = s; // 원본 문자열 저장
+        String[] compressedArr = new String[s.length() / 2 + 1]; // 모든 단위에 대한 압축 결과 저장
+        compressedArr[0] = s; // 압축되지 않은 원본 문자열
+
+        for (int i = 1; i <= originalS.length() / 2; i++) { // 문자열 길이의 절반까지만 확인하면 된다.
+            s = originalS;
+            StringBuilder compressed = new StringBuilder(); // 압축 진행 저장
+
+            // 남은 문자열의 길이가 단위 이상일 때
+            while (s.length() >= i) {
+                int repeat = compressing(s, i); // 반복되는 횟수를 구한다.
+                compressed.append(repeat == 1 ? "" : repeat).append(s, 0, i); // 압축 결과가 1이면 숫자를 추가하지 않는다.
+                s = s.substring(i * repeat); // 남은 문자열
+            }
+            // 마지막에 남은 문자열을 저장한다.
+            compressed.append(s);
+            compressedArr[i] = compressed.toString();
+        }
+        // 압축 결과들을 길이 오름차순으로 정렬한다.
+        Arrays.sort(compressedArr, Comparator.comparingInt(String::length));
+        return compressedArr[0].length();
+    }
+
+    // 재귀적으로 반복 횟수를 구한다.
+    private int compressing(String s, int cut) {
+        // 현재 단위와 다음 단위가 같은지 확인. 다음 단위가 자르는 단위보다 짧을 때를 대비하여 min 사용
+        if (!s.substring(0, cut).equals(s.substring(cut, Math.min(2 * cut, s.length())))) {
+            return 1;
+        }
+        return 1 + compressing(s.substring(cut), cut);
+    }
+}
+```
+
+## 정리
+
+### substring
+
+이 문제에서 <a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/String.html#substring(int)" target="_blank" className="a-mdx">substring</a>이 많이 사용되었는데 정확한 사용법을 짚고 넘어가자.
+
+- public String substring(int beginIndex)
+- public String substring(int beginIndex, int endIndex)
+
+다음과 같이 두가지가 있다. 첫번째는 [beginIndex]부터 끝 까지의 부분 문자열을 얻는다. 두번째는 [beginIndex]부터 [endIndex - 1]까지의 부분 문자열을 얻는다. 주의해야 할 점은 [endIndex]까지가 아닌 [endIndex - 1]까지 라는 것이다.
+
+비슷한 메소드로는 다음이 있다.
+
+- public CharSequence subSequence(int beginIndex, int endIndex)
+
+CharSequence를 얻는다는 것을 제외하면 substring과 완전히 동일한 기능을 한다.
+
+### StringBuilder.append
+
+<a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/StringBuilder.html#append(java.lang.CharSequence,int,int)" target="_blank" className="a-mdx">StringBuilder.append</a>에서 문자열의 일부분만 추가할 수 있다는 것을 알았다. substring으로 하는 것보다 더 간결하게 표현할 수 있을 것 같다.
+
+- public StringBuilder append(CharSequence s, int start, int end)
+
+s로 null이 들어온다면 "null"로 간주한다고 한다.
+
+### Arrays.sort
+
+<a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html" target="_blank" className="a-mdx">Arrays</a>클래스는 sort메소드를 지원한다.
+
+![image1](https://drive.google.com/thumbnail?id=1Peg_IjqAW-_FQt5Ze-Id5rMbynhg4Gf-&sz=w1000)
+
+- boolean을 제외한 모든 기본 자료형에 대해 오름차순 정렬을 지원한다.
+- fromIndex, toIndex를 제공하여 특정 범위만 정렬할 수 있다.
+- 참조 자료형의 정렬도 지원한다.
+
+오름차순이 아닌 다른 임의의 정렬 기준을 적용하려면 Comparator를 구현한 클래스를 제공해야 한다. 예를 들어 Collections.reverseOrder()를 제공하여 내림차순 정렬을 할 수 있다.
+
+---
