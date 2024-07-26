@@ -1,0 +1,162 @@
+---
+title: '[99클럽 코테 스터디] - 5일차 TIL'
+description: '5일차 문제 [베스트앨범]'
+date: '2024-07-26'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.3 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/42579" target="_blank" className="a-mdx">베스트앨범</a>]
+
+### 문제 설명
+
+스트리밍 사이트에서 장르 별로 가장 많이 재생된 노래를 두 개씩 모아 베스트 앨범을 출시하려 합니다. 노래는 고유 번호로 구분하며, 노래를 수록하는 기준은 다음과 같습니다.
+
+1. 속한 노래가 많이 재생된 장르를 먼저 수록합니다.
+2. 장르 내에서 많이 재생된 노래를 먼저 수록합니다.
+3. 장르 내에서 재생 횟수가 같은 노래 중에서는 고유 번호가 낮은 노래를 먼저 수록합니다.
+
+노래의 장르를 나타내는 문자열 배열 genres와 노래별 재생 횟수를 나타내는 정수 배열 plays가 주어질 때, 베스트 앨범에 들어갈 노래의 고유 번호를 순서대로 return 하도록 solution 함수를 완성하세요.
+
+### 제한사항
+
+- genres[i]는 고유번호가 i인 노래의 장르입니다.
+- plays[i]는 고유번호가 i인 노래가 재생된 횟수입니다.
+- genres와 plays의 길이는 같으며, 이는 1 이상 10,000 이하입니다.
+- 장르 종류는 100개 미만입니다.
+- 장르에 속한 곡이 하나라면, 하나의 곡만 선택합니다.
+- 모든 장르는 재생된 횟수가 다릅니다.
+
+### 입출력 예
+
+| genres                                          | plays                      | return       |
+|-------------------------------------------------|----------------------------|--------------|
+| ["classic", "pop", "classic", "classic", "pop"] | [500, 600, 150, 800, 2500] | [4, 1, 3, 0] |
+
+### 입출력 예에 대한 설명
+
+classic 장르는 1,450회 재생되었으며, classic 노래는 다음과 같습니다.
+
+- 고유 번호 3: 800회 재생
+- 고유 번호 0: 500회 재생
+- 고유 번호 2: 150회 재생
+
+pop 장르는 3,100회 재생되었으며, pop 노래는 다음과 같습니다.
+
+- 고유 번호 4: 2,500회 재생
+- 고유 번호 1: 600회 재생
+
+따라서 pop 장르의 [4, 1]번 노래를 먼저, classic 장르의 [3, 0]번 노래를 그다음에 수록합니다.
+
+- 장르 별로 가장 많이 재생된 노래를 최대 두 개까지 모아 베스트 앨범을 출시하므로 2번 노래는 수록되지 않습니다.
+
+---
+
+## 풀이 과정
+
+### 해시
+
+가장 많이 재생된 장르 순으로 각 장르 내에서 가장 많이 재생된 순으로 2개의 곡의 고유번호를 알아내야한다. 그러기 위해서 2개의 해시 테이블이 필요하다.
+
+1. 장르가 key이고 총 재생 횟수가 value인 해시 테이블.
+2. 장르가 key이고 각 곡의 재생 횟수와 고유번호가 기록된 리스트가 value인 해시 테이블.
+
+Java에서는 해시 테이블을 Map으로 사용할 수 있다. Map의 구현체로는 HashMap과 TreeMap이 있다. key값을 정렬 할 필요가 없으므로 여기서는 HashMap을 사용하였다.
+
+해시 테이블을 만들고, 총 재생 횟수로 내림차순 정렬한다. 그리고 정렬된 순서대로 각 곡의 재생 횟수로 내림차순 정렬하고 앞에서 2개를 뽑으면 된다. 단, 곡이 1개일 때 예외처리를 해야한다.
+
+#### 정답
+
+```java
+import java.util.*;
+
+class Solution {
+    public List<Integer> solution(String[] genres, int[] plays) {
+        List<Integer> answer = new ArrayList<>();
+
+        Map<String, Integer> sum = new HashMap<>(); // 각 장르당 총 재생 횟수
+        Map<String, List<int[]>> songs = new HashMap<>(); // 각 장르당 곡 목록
+
+        // 입력 받은 값 모두 순회
+        for (int i = 0; i < genres.length; i++) {
+            sum.put(genres[i], sum.getOrDefault(genres[i], 0) + plays[i]);
+
+            // 여기서도 getOrDefault를 사용 할 수 있지만 가독성을 위해 조건문 사용
+            if (!songs.containsKey(genres[i])) songs.put(genres[i], new ArrayList<>());
+            songs.get(genres[i]).add(new int[]{plays[i], i});
+        }
+
+        // 총 재생 횟수의 내림차순으로 정렬
+        List<String> keySet = new ArrayList<>(sum.keySet());
+        keySet.sort(new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return Integer.compare(sum.get(s2), sum.get(s1));
+            }
+        });
+
+        // 정렬된 장르 순으로 순회
+        for (String g : keySet) {
+            List<int[]> song = songs.get(g);
+            // 각 장르마다 재생 횟수로 정렬
+            song.sort(new Comparator<int[]>() {
+                @Override
+                public int compare(int[] i1, int[] i2) {
+                    return Integer.compare(i2[0], i1[0]);
+                }
+            });
+
+            answer.add(song.get(0)[1]);
+            // 만약 장르 내 곡이 1개면 1개만 추가
+            if (song.size() >= 2)
+                answer.add(song.get(1)[1]);
+        }
+        return answer;
+    }
+}
+```
+
+---
+
+## 정리
+
+### getOrDefault
+
+Map에는 getOrDefault라는 메소드가 있다.
+
+- default V getOrDefault(Object key, V defaultValue)
+
+만약 key값이 map내에 존재하지 않으면 defaultValue를 반환한다. containsKey를 사용한 조건문으로도 구현 가능하다.
+
+```java
+Map<String, Integer> map = new HashMap<>();
+
+int value = 0;
+value = map.getOrDefault("hello", 0); // key값에 "hello"가 없으면 0 반환, 있으면 get("hello") 반환.
+
+// 위와 동일한 기능을 한다.
+if (map.containsKey()) value = map.get("hello");
+else value = 0;
+```
+
+### HashMap VS TreeMap
+
+자바에는 Map의 구현체로 HashMap과 TreeMap이 있다. 둘의 차이점은 다음과 같다.
+
+- HashMap
+    - 해시 값을 주소로 사용하여 value를 저장한다.
+    - key값의 입력 순서가 유지됨이 보장되지 않는다.
+    - 탐색 속도는 O(1)이다.
+
+- TreeMap
+    - Red-Black Tree를 기반으로 value를 저장한다.
+    - key값이 순서가 자동으로 오름차순으로 정렬된다.
+    - 탐색 속도는 O(logn)이다.
+
+key값의 정렬이 필요한게 아니라면 HashMap을 사용하는게 성능상 더 좋을 것이다.
+
+### 프로그래머스 팁
+
+프로그래머스에서 return값이 배열일 경우, List로 return값을 변경하여도 채점이 가능하다.
+
+---
