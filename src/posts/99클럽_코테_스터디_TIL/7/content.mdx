@@ -1,0 +1,244 @@
+---
+title: '[99클럽 코테 스터디] - 7일차 TIL'
+description: '7일차 문제 [과제 진행하기]'
+date: '2024-07-28'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.2 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/176962" target="_blank" className="a-mdx">과제 진행하기</a>]
+
+### 문제 설명
+
+과제를 받은 루는 다음과 같은 순서대로 과제를 하려고 계획을 세웠습니다.
+
+- 과제는 시작하기로 한 시각이 되면 시작합니다.
+- 새로운 과제를 시작할 시각이 되었을 때, 기존에 진행 중이던 과제가 있다면 진행 중이던 과제를 멈추고 새로운 과제를 시작합니다.
+- 진행중이던 과제를 끝냈을 때, 잠시 멈춘 과제가 있다면, 멈춰둔 과제를 이어서 진행합니다.
+    - 만약, 과제를 끝낸 시각에 새로 시작해야 되는 과제와 잠시 멈춰둔 과제가 모두 있다면, 새로 시작해야 하는 과제부터 진행합니다.
+- 멈춰둔 과제가 여러 개일 경우, 가장 최근에 멈춘 과제부터 시작합니다.
+
+과제 계획을 담은 이차원 문자열 배열 ****plans****가 매개변수로 주어질 때, 과제를 끝낸 순서대로 이름을 배열에 담아 return 하는 solution 함수를 완성해주세요.
+
+### 제한 사항
+
+- 3 ≤ **plans**의 길이 ≤ 1,000
+    - **plans**의 원소는 [name, start, playtime]의 구조로 이루어져 있습니다.
+        - name : 과제의 이름을 의미합니다.
+            - 2 ≤ name의 길이 ≤ 10
+            - name은 알파벳 소문자로만 이루어져 있습니다.
+            - name이 중복되는 원소는 없습니다.
+        - start : 과제의 시작 시각을 나타냅니다.
+            - "hh:mm"의 형태로 "00:00" ~ "23:59" 사이의 시간값만 들어가 있습니다.
+            - 모든 과제의 시작 시각은 달라서 겹칠 일이 없습니다.
+            - 과제는 "00:00" ... "23:59" 순으로 시작하면 됩니다. 즉, 시와 분의 값이 작을수록 더 빨리 시작한 과제입니다.
+        - playtime : 과제를 마치는데 걸리는 시간을 의미하며, 단위는 분입니다.
+            - 1 ≤ playtime ≤ 100
+            - playtime은 0으로 시작하지 않습니다.
+        - 배열은 시간순으로 정렬되어 있지 않을 수 있습니다.
+- 진행중이던 과제가 끝나는 시각과 새로운 과제를 시작해야하는 시각이 같은 경우 진행중이던 과제는 끝난 것으로 판단합니다.
+
+### 입출력 예
+
+| plans                                                                                                            | result                                      |
+|------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| [["korean", "11:40", "30"], ["english", "12:10", "20"], ["math", "12:30", "40"]]                                 | ["korean", "english", "math"]               |
+| [["science", "12:40", "50"], ["music", "12:20", "40"], ["history", "14:00", "30"], ["computer", "12:30", "100"]] | ["science", "history", "computer", "music"] |
+| [["aaa", "12:00", "20"], ["bbb", "12:10", "30"], ["ccc", "12:40", "10"]]                                         | ["bbb", "ccc", "aaa"]                       |
+
+### 입출력 예 설명
+
+#### 압출력 예 #1
+
+"korean", "english", "math"순으로 과제를 시작합니다. "korean" 과제를 "11:40"에 시작하여 30분 후인 "12:10"에 마치고, 즉시 "english" 과제를 시작합니다. 20분 후인 "12:30"에 "english" 과제를 마치고, 즉시 "math" 과제를 시작합니다. 40분 후인 "01:10"에 "math" 과제를 마칩니다. 따라서 "korean", "english", "math" 순으로 과제를 끝내므로 차례대로 배열에 담아 반환합니다.
+
+#### 입출력 예 #2
+
+"music", "computer", "science", "history" 순으로 과제를 시작합니다.
+
+| 시각      | 진행 중 과제    | 잠시 멈춘 과제              | 설명                                             |
+|---------|------------|-----------------------|------------------------------------------------|
+| "12:20" | "music"    | [ ]                   | "music"을 시작합니다.                                |
+| "12:30" | "computer" | ["music"]             | "music"을 잠시 멈추고(남은 시간 30분) "computer"를 시작합니다   |
+| "12:40" | "science"  | ["music", "computer"] | "computer"를 잠시 멈추고(남은 시간 90분) "science"를 시작합니다 |
+| "13:30" | "computer" | ["music"]             | "science"를 끝내고 가장 최근에 멈춘 "computer"를 다시 시작합니다  |
+| "14:00" | "history"  | ["music", "computer"] | "computer"를 잠시 멈추고(남은 시간 60분) "history"를 시작합니다 |
+| "14:30" | "computer" | ["music"]             | "history"를 끝내고 가장 최근에 멈춘 "computer"를 다시 시작합니다" |
+| "15:30" | "music"    | [ ]                   | "computer"를 끝내고 가장 최근에 멈춘 "music"을 다시 시작합니다"   |
+| "16:00" | -          | [ ]                   | "music"을 끝냅니다                                  |
+
+따라서 ["science", "history", "computer", "music"] 순서로 과제를 마칩니다.
+
+#### 입출력 예 #3
+
+설명 생략
+
+---
+
+## 풀이 과정
+
+### stack
+
+데이터를 다룰 때, Plan이라는 클래스를 정의하여 사용하면 데이터를 좀 더 쉽게 다룰 수 있을 것 같다. start는 (hh) * 60 + (mm)으로 분 단위로 변경하여 쉽게 다룰 수 있다.
+
+그리고, 이전에 했던 과제를 다시 진행할 때는 가장 최근에 멈춘 과제부터 시작하므로 이는 stack으로 처리하면 좋을 것 같다. stack의 맨 위 값은 진행 중인 과제, 나머지 값들을 멈춘 과제이다.
+
+즉, 로직은 다음과 같다.
+
+1. stack 맨 위 과제인 기존 진행 중이던 과제({"="}cur)의 끝나는 시간과 새로 시작 할 과제({"="}new)의 끝나는 시간을 비교한다. 더 이상 진행 할 과제가 없다면 3으로.
+
+2. cur.start + cur.playtime ≤ new.start라면 1.1로, 아니라면 2.1로.
+
+    1.1 기존 진행 중이던 과제를 끝낸다. 즉, stack에서 값을 pop한다.
+
+    1.2 다음으로, 가장 최근에 멈춘 과제를 진행해야 한다. 가장 최근에 멈춘 과제가 없으면 new를 stack에 push하고 1로 돌아간다. 시작 시간이 기존 진행 중이던 과제의 끝내는 시간이 되므로 cur.start + cur.playtime으로 변경한다.
+
+    1.3 1.1로 돌아가서 다시 진행 할 과제를 끝낼 수 있는지 확인한다. 끝낼 수 없다면 2.1로.
+
+    2.1 cur의 playtime을 지금까지 진행 한 만큼 빼야한다. 즉, new.start - cur.start만큼 빼준다.
+
+    2.2 stack에 new를 push한다. 1로 돌아간다.
+
+3. stack에 남은 과제를 하나씩 pop하여 과제를 끝낸다.
+
+#### 정답
+
+```java
+import java.util.*;
+
+class Solution {
+    class Plan {
+        String name;
+        int start;
+        int playtime;
+
+        Plan(String[] plan) {
+            this.name = plan[0];
+            String[] split = plan[1].split(":");
+            // start를 분 단위로 설정한다.
+            this.start = Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]);
+            this.playtime = Integer.parseInt(plan[2]);
+        }
+    }
+
+    public String[] solution(String[][] plans) {
+        Plan[] ps = new Plan[plans.length];
+        for (int i = 0; i < plans.length; i++)
+            ps[i] = new Plan(plans[i]);
+        Arrays.sort(ps, (a, b) -> Integer.compare(a.start, b.start));
+        Stack<Plan> s = new Stack<>();
+        String[] answer = new String[plans.length];
+        int finished = 0;
+        for (Plan p : ps) {
+            // stack이 비어있다면 과제를 넣기만 하면 된다.
+            if (s.isEmpty()) {
+                s.push(p);
+                continue;
+            }
+
+            // 기존 과제와 멈춘 과제를 끝낼 수 있는지 확인
+            while (true) {
+                Plan cur = s.peek();
+                if (cur.start + cur.playtime <= p.start) {
+                    // 과제를 끝내면 answer에 끝낸 과제의 이름을 넣는다.
+                    answer[finished++] = s.pop().name;
+                    if (!s.isEmpty()) {
+                        s.peek().start = cur.start + cur.playtime;
+                    } else {
+                        // stack이 비어있으면 과제를 넣기만 하면 된다.
+                        s.push(p);
+                        break;
+                    }
+                } else { // 더 이상 과제를 진행할 수 없으면 새롭게 시작한 과제를 넣는다.
+                    cur.playtime -= (p.start - cur.start);
+                    s.push(p);
+                    break;
+                }
+            }
+        }
+        // 멈춘 과제를 순서대로 전부 끝낸다.
+        while (!s.isEmpty()) answer[finished++] = s.pop().name;
+        return answer;
+    }
+}
+```
+
+---
+
+## 정리
+
+### Stack VS Deque
+
+자바의 <a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Stack.html" target="_blank" className="a-mdx">Stack</a>클래스는 deprecated되었다. 컬렉션 프레임워크가 나오기도 전에 있던 <a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Vector.html" target="_blank" className="a-mdx">Vector</a>라는 클래스를 상속 받아 구현되었다. 이 클래스는 Java 1.0부터 있던 굉장히 오래된 클래스이다. 그래서 그런지 Vector는 여러가지 취약점이 많고 Stack에서 사용하면 안되는 부모 메소드도 상속 받아 의도치 않은 동작이 발생할 수 있다(get, add 등등). 그래서 Java docs에서는 <a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Deque.html" target="_blank" className="a-mdx">Deque</a>을 사용하는 것을 권장한다. Deque의 구현체로는 LinkedList, ArrayDeque등이 있다.
+
+둘의 성능 차이는 다음과 같았다.
+
+#### Stack
+
+```java
+import java.util.Stack;
+
+public class StackVSDeque {
+    public static void main(String[] args) {
+        Stack<Double> stack = new Stack<>();
+
+        // push
+        long start = System.nanoTime();
+        for (int i = 0; i < 10000000; i++) {
+            stack.push(Math.random());
+        }
+        long end = System.nanoTime();
+        System.out.println("push: " + (end - start) / 1000000.0 + " ms");
+
+        // pop
+        start = System.nanoTime();
+        for (int i = 0; i < 10000000; i++) {
+            stack.pop();
+        }
+        end = System.nanoTime();
+        System.out.println("pop: " + (end - start) / 1000000.0 + " ms");
+    }
+}
+```
+
+#### Deque
+
+```java
+import java.util.Deque;
+import java.util.LinkedList;
+
+public class StackVSDeque {
+    public static void main(String[] args) {
+        Deque<Double> deque = new LinkedList<>();
+
+        // push
+        long start = System.nanoTime();
+        for (int i = 0; i < 10000000; i++) {
+            deque.push(Math.random());
+        }
+        long end = System.nanoTime();
+        System.out.println("push: " + (end - start) / 1000000.0 + " ms");
+
+        // pop
+        start = System.nanoTime();
+        for (int i = 0; i < 10000000; i++) {
+            deque.pop();
+        }
+        end = System.nanoTime();
+        System.out.println("pop: " + (end - start) / 1000000.0 + " ms");
+    }
+}
+
+```
+
+Stack 결과
+- push: 189.561542 ms
+- pop: 35.191458 ms
+
+Deque 결과
+- push: 530.072125 ms
+- pop: 49.46875 ms
+
+속도는 Stack이 push, pop 전부 더 빠르지만 상술한 대로 Deque을 사용하는 것을 권장한다. 즉, 코딩테스트에서는 Stack을 사용하는 것이 좋겠지만 실무에서는 Deque을 사용하는 것이 좋다.
+
+---
