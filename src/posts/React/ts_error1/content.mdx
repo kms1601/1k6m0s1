@@ -1,0 +1,92 @@
+---
+title: "React에서 ~ is possibly 'null'에러"
+description: '타입스크립트 에러 해결법'
+date: '2024-07-29'
+thumbnail: 'https://drive.google.com/thumbnail?id=1k-djuhQ8FfoLgNhwr51h9T80pYn4jy88&sz=w1000'
+hashtags: 'React, Typescript, 에러'
+---
+
+## null 타입 에러
+
+개인 프로젝트 포켓몬 도감을 진행하던 도중, 빌드할 때 다음과 같은 에러가 발생하였다.
+
+<img src={"https://drive.google.com/thumbnail?id=10sceOOhCxVKqAVENZ_J5CSh1bJTsNbMw&sz=w1000"} className={"rounded-lg"}></img>
+
+react에서 useState는 초기값이 필요한데 api요청이 아직 끝나지 않았을 때는 로딩 화면을 보여주고 그 동안은 null로 초기화를 할려고 했다. 처음에는 다음과 같은 코드를 짰다.
+
+```typescript
+const [pokemon, setPokemon] = useState<Pokemon>(null);
+const [loading, setLoading] = useState<boolean>(true);
+
+//...
+
+useEffect(() => {
+  // api 호출 후 setPokemon으로 데이터 저장
+  setPokemon(result);
+  setLoading(false);
+});
+
+//...
+
+return (
+  //...
+
+  {
+    loading
+      ? <Loading/>
+      : <p className={"text-center ml-2 mr-2 text-description text-sm"}>#{pokemon.id}</p>
+  }
+
+  //...
+)
+```
+
+### Union Type 사용
+
+이 에러는 에러 메세지를 보고 바로 해결할 수 있었다. null을 Pokemon타입에 대입할 수 없기 때문이다. 이 에러는 union type으로 바로 해결할 수 있다.
+
+```typescript
+const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+```
+
+이제 이 부분에서는 오류가 나지 않지만 다른 부분에서 오류가 발생하였다.
+
+## ~ is possibly 'null'에러
+
+<img src={"https://drive.google.com/thumbnail?id=1rqKIwOrzcrEQUcJVapFFbVSY6s9kbsML&sz=w1000"} className={"rounded-lg"}></img>
+
+이 부분은 해결하기 어려워서 구글링을 해보았지만 원하는 답을 얻을 수 없었다. 그래서 코드가 복잡해지지만 다음과 같이 해결하였다.
+
+### type narrowing
+
+```typescript
+{pokemon ? <p className={"text-center ml-2 mr-2 text-description text-sm"}>#{pokemon.id}</p> : null}
+```
+
+다음과 같이 type narrowing을 사용하여 해결하였다. 이게 최선의 방법인지는 잘 모르겠으나 빌드가 잘 되는 것을 확인할 수 있었다.
+
+### 배열로 처리하기
+
+아니면 다음과 같이 객체를 배열로 처리해도 된다.
+
+```typescript
+const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+
+//...
+
+return {
+  //...
+
+  <p className={"text-center ml-2 mr-2 text-description text-sm"}>#{pokemon[0].id}</p>
+
+  //..
+}
+```
+
+그나마 코드가 덜 복잡해진다. 단, 기존에 있던 로직을 배열에 추가하는 방식으로 전부 바꾸어야 한다는 단점이 있다. 나는 이 방법으로 해결하였다.
+
+## 정리
+
+useState에 복잡한 객체가 들어오면 배열로 해결하는 것이 가장 빠른 방법인것 같다.
+
+---
