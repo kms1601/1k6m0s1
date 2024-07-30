@@ -107,8 +107,8 @@ Priority queue(우선순위 큐)는 힙 트리를 이용하여 구현한다. 힙
 
 트리에서 부모나 자식를 구하기 위해서 배열을 기준으로 인덱스 1부터 시작하면
 
+- 부모노드는 index / 2이다.
 - 자식노드는 왼쪽 2 * index, 오른쪽 2 * index + 1이다.
-- 부모도느는 index / 2이다.
 
 #### 삽입 연산
 
@@ -123,7 +123,7 @@ Priority queue(우선순위 큐)는 힙 트리를 이용하여 구현한다. 힙
 3. 힙의 성질에 맞게 자식과 크기를 비교하고 교환한다. 두 자식 모두 교환이 가능하면 최소 힙이면 더 작은 값, 최대 힙이면 더 큰 값과 교환한다.
 4. 더 이상 교환하지 않아도 될때까지 3을 반복한다.
 
-#### 코드
+#### 코드(최소 힙)
 
 ```java
 import java.util.NoSuchElementException;
@@ -171,12 +171,15 @@ public class MyPriorityQueue {
         while (true) {
             int temp = heap[index];
             boolean b1 = false, b2 = false;
-            if (2 * index <= size && heap[index] > heap[2 * index]) b1 = true;
 
+            // 각 자식 노드가 존재하고 값이 더 작다면
+            if (2 * index <= size && heap[index] > heap[2 * index]) b1 = true;
             if (2 * index + 1 <= size && heap[index] > heap[2 * index + 1]) b2 = true;
 
+            // 교환 안해도 된다면
             if (!(b1 || b2)) break;
 
+            // 둘다 교환이 가능하면 더 작은 값과 교환
             if (b1 && b2 && (heap[2 * index] > heap[2 * index + 1])) b1 = false;
 
             if (b1) {
