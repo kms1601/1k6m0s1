@@ -1,0 +1,107 @@
+---
+title: '[99클럽 코테 스터디] - 10일차 TIL'
+description: '10일차 문제 [최대 힙]'
+date: '2024-07-31'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 백준 실버 II [<a href="https://www.acmicpc.net/problem/11279" target="_blank" className="a-mdx">최대 힙</a>]
+
+### 문제
+
+널리 잘 알려진 자료구조 중 최소 힙이 있다. 최대 힙을 이용하여 다음과 같은 연산을 지원하는 프로그램을 작성하시오.
+
+1. 배열에 자연수 x를 넣는다.
+2. 배열에서 가장 큰 값을 출력하고, 그 값을 배열에서 제거한다.
+
+프로그램은 처음에 비어있는 배열에서 시작하게 된다.
+
+### 입력
+
+첫째 줄에 연산의 개수 N(1 ≤ N ≤ 100,000)이 주어진다. 다음 N개의 줄에는 연산에 대한 정보를 나타내는 정수 x가 주어진다. 만약 x가 자연수라면 배열에 x라는 값을 넣는(추가하는) 연산이고, x가 0이라면 배열에서 가장 큰 값을 출력하고 그 값을 배열에서 제거하는 경우이다. 입력되는 자연수는 2³¹보다 작다.
+
+### 출력
+
+입력에서 0이 주어진 횟수만큼 답을 출력한다. 만약 배열이 비어 있는 경우인데 가장 큰 값을 출력하라고 한 경우에는 0을 출력하면 된다.
+
+### 예제
+
+#### 입력 1
+
+13
+0
+1
+2
+0
+0
+3
+2
+1
+0
+0
+0
+0
+0
+
+#### 출력 1
+
+0
+2
+1
+3
+2
+1
+0
+0
+
+---
+
+## 풀이 과정
+
+### PriorityQueue
+
+자바에서 제공하는 PriorityQueue를 사용하면 된다. 기본적으로는 최소 힙으로 동작하므로 Comparator를 제공하여 최대 힙으로 바꾸어주어야 한다.
+
+#### 정답
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+
+        // 역순으로 정렬한다.
+        PriorityQueue<Integer> pq = new PriorityQueue<>(100000, Collections.reverseOrder());
+
+        for (int n = 0; n < N; n++) {
+            int x = Integer.parseInt(br.readLine());
+            if (x == 0) {
+                if (pq.isEmpty()) {
+                    bw.write("0");
+                } else {
+                    bw.write(String.valueOf(pq.poll()));
+                }
+                bw.write("\n");
+            } else {
+                pq.offer(x);
+            }
+        }
+        bw.flush();
+    }
+}
+```
+
+---
+
+## 정리
+
+9주차 문제였던 [<a href="https://www.acmicpc.net/problem/1927" target="_blank" className="a-mdx">최소 힙</a>]과 유사한 문제이다. 우선순위 큐의 구현에 대해서는 <a href="https://1k6m0s1.com/blog/99클럽_코테_스터디_TIL/9" className="a-mdx">여기</a>를 참조.
+
+그런데, 이 문제는 1927과는 다르게 출력을 System.out.println으로 하면 시간초과가 발생한다. 그래서 BufferedWriter를 이용하였다.
+
+---
