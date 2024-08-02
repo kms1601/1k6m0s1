@@ -184,11 +184,11 @@ public class Main {
     }
 
     // 트리의 깊이 구하기(DFS)
-    private static void dfs(List<List<Integer>> company, int[][] depthList, int cur, int depth) {
+    private static void dfs(List<List<Integer>> company, int[][] depthArr, int cur, int depth) {
         for (int i : company.get(cur)) {
-            depthList[i][0] = depth + 1;
-            depthList[i][1] = i;
-            dfs(company, depthList, i, depth + 1);
+            depthArr[i][0] = depth + 1;
+            depthArr[i][1] = i;
+            dfs(company, depthArr, i, depth + 1);
         }
     }
 }
