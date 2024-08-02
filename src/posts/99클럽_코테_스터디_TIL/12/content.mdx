@@ -68,7 +68,7 @@ hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
 
 ### DP
 
-트리의 깊이가 깊은 곳부터 전화를 돌리는데 걸리는 최소 시간을 구한다. 그렇다면 최소 시간은 어떻게 구할까?
+노드의 깊이가 깊은 곳부터 전화를 돌리는데 걸리는 최소 시간을 구한다. 그렇다면 최소 시간은 어떻게 구할까?
 
 다음 트리를 예시로 보자. 노드 안 숫자는 그 노드에서 전화를 돌리는데 걸리는 최소 시간이다.
 
@@ -87,16 +87,16 @@ hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
     1-2 위에서 구한 값으로 최댓값을 갱신한다.
 2. 구한 최댓값을 최소 시간으로 정한다.
 
-이 알고리즘을 트리의 깊이가 깊은 순으로 모든 노드에 적용하면 된다. 리프 노드일 경우(부하 직원이 없으면) 걸리는 시간을 0으로 한다.
+이 알고리즘을 깊이가 깊은 순으로 모든 노드에 적용하면 된다. 리프 노드일 경우(부하 직원이 없으면) 걸리는 시간을 0으로 한다.
 
-### 트리의 깊이 구하기
+### 각 노드의 깊이 구하기
 
-트리의 깊이를 구하려면 DFS를 사용하면 된다(BFS를 사용해도 된다). 다음 메소드를 작성하여 트리의 깊이를 구하였다.
+각 노드의 깊이를 구하려면 DFS를 사용하면 된다(BFS를 사용해도 된다). 다음 메소드를 작성하여 각 노드의 깊이를 구하였다.
 
 ```java
 /**
 * company - 회사의 연락망 구조. 각 직원의 직속 부하 직원 목록이 저장되어 있음.
-* depthArr - 트리의 깊이를 기록하는 배열 (깊이, 노드 번호).
+* depthArr - 노드의 깊이를 기록하는 배열 (깊이, 노드 번호).
 * cur - 현재 노드.
 * depth - 현재 깊이.
 */
@@ -109,8 +109,6 @@ private static void dfs(List<List<Integer>> company, int[][] depthArr, int cur, 
     }
 }
 ```
-
-이 문제에서 노드의 깊이는 그 노드까지 연락이 닿는 최소 시간과 동일하므로 변수 이름을 'time'으로 하였다.
 
 노드를 깊이가 깊은 순으로 정렬하고 모든 노드에 대해 위 알고리즘을 적용하면 된다.
 
@@ -155,10 +153,10 @@ public class Main {
         int[][] depthArr = new int[N][2];
         dfs(company, depthArr, 0, 0);
 
-        // 트리의 깊이가 깊은 순으로 정렬한다.
+        // 노드의 깊이가 깊은 순으로 정렬한다.
         Arrays.sort(depthArr, (a, b) -> Integer.compare(b[0], a[0]));
 
-        // 트리의 깊이가 깊은 순으로 순회하며 전화를 돌리는데 걸리는 최소 시간을 구한다(DP).
+        // 노드의 깊이가 깊은 순으로 순회하며 전화를 돌리는데 걸리는 최소 시간을 구한다(DP).
         int[] minTime = new int[N];
         for (int[] from : depthArr) {
             List<Integer> to = company.get(from[1]);
@@ -183,7 +181,7 @@ public class Main {
         System.out.println(minTime[0]);
     }
 
-    // 트리의 깊이 구하기(DFS)
+    // 노드의 깊이 구하기(DFS)
     private static void dfs(List<List<Integer>> company, int[][] depthArr, int cur, int depth) {
         for (int i : company.get(cur)) {
             depthArr[i][0] = depth + 1;
@@ -194,5 +192,17 @@ public class Main {
 }
 
 ```
+
+---
+
+## 정리
+
+예제 2번 풀이 과정
+
+![image3](https://drive.google.com/thumbnail?id=18Nxu4FM7AVOwEx-g2dfhG2MarcsnLGT6&sz=w1000)
+![image4](https://drive.google.com/thumbnail?id=1xoCHnvX4GhZmFSMI31t0BCA0uJWBndmQ&sz=w1000)
+![image5](https://drive.google.com/thumbnail?id=1QKHFgFizY1nCaksWukBPHNqxAB6YCNEU&sz=w1000)
+![image6](https://drive.google.com/thumbnail?id=1VtxyJfmOHjfvronhLGqdQ1nBvDf15pLN&sz=w1000)
+![image7](https://drive.google.com/thumbnail?id=1C9WQJDJN-z5U9sCy17HZdHWDB673Gm9G&sz=w1000)
 
 ---
