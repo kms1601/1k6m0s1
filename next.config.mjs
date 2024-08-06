@@ -18,8 +18,12 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "grepp-programmers.s3.ap-northeast-2.amazonaws.com"
+        hostname: "grepp-programmers.s3.ap-northeast-2.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "i.imgur.com",
+      }
     ],
   },
 };

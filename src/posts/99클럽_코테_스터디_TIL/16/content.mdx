@@ -1,0 +1,101 @@
+---
+title: '[99클럽 코테 스터디] - 16일차 TIL'
+description: '16일차 문제 [N-Queen]'
+date: '2024-08-06'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.2 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/12952" target="_blank" className="a-mdx">N-Queen</a>]
+
+### 문제 설명
+
+가로, 세로 길이가 n인 정사각형으로된 체스판이 있습니다. 체스판 위의 n개의 퀸이 서로를 공격할 수 없도록 배치하고 싶습니다.
+
+예를 들어서 n이 4인경우 다음과 같이 퀸을 배치하면 n개의 퀸은 서로를 한번에 공격 할 수 없습니다.
+
+![image1](https://i.imgur.com/lt2zdK6.png)
+![image2](https://i.imgur.com/5c5EUrq.png)
+
+체스판의 가로 세로의 세로의 길이 n이 매개변수로 주어질 때, n개의 퀸이 조건에 만족 하도록 배치할 수 있는 방법의 수를 return하는 solution함수를 완성해주세요.
+
+### 제한사항
+
+- 퀸(Queen)은 가로, 세로, 대각선으로 이동할 수 있습니다.
+- n은 12이하의 자연수 입니다.
+
+### 입출력 예
+
+| n | result |
+|---|--------|
+| 4 | 2      |
+
+### 입출력 예 설명
+
+입출력 예 #1
+문제의 예시와 같습니다.
+
+---
+
+## 풀이 과정
+
+### 모든 경우의 수
+
+가장 먼저 떠올릴 수 있는 풀이법은 모든 경우의 수에 대해 조건에 만족하는 것의 개수를 세면 된다. 하지만 문제 조건에서 n은 최대 12로 ₁₄₄C₁₂의 경우의 수가 나온다. 이 값은 103,619,293,824,707,388로 모든 경우의 수를 탐색하는 방법으로는 풀이가 불가능하다.
+
+### DFS, 백트래킹
+
+각 행에는 퀸이 최대 한개만 들어갈 수 있다. 퀸은 좌우로 쭉 움직여 공격할 수 있기 때문이다. 즉, 각 행마다 퀸이 들어갈 수 있는 위치에 놓아보면서 모든 행에 퀸을 하나씩 놓을 수 있다면 조건에 맞는 배치인 것이다. 여기서 DFS와 백트래킹을 사용한다. DFS로 놓은 퀸의 수가 n이 될때까지 각 행마다 시행해주고 백트래킹으로 기존에 놓았던 퀸을 제거하여 다른 경우를 전부 탐색한다.
+
+공격 받는 위치를 결정할 때에는 모든 방향을 체크할 필요 없이 아래로 향하는 공격만 확인하면 된다. 행을 1씩 증가시키며 확인하고 각 행에는 어차피 퀸은 1개밖에 못들어가기 때문이다.
+
+### 정답
+
+```java
+class Solution {
+    private int count = 0;
+    private int n;
+
+    public int solution(int n) {
+        this.n = n;
+        NQueen(new int[n][n], 0);
+        return count;
+    }
+
+    // DFS, board - 해당 위치가 공격받는 횟수, r - 현재 놓을 퀸의 행
+    private void NQueen(int[][] board, int r) {
+        // 퀸을 다 놓았다면 count를 1 증가시키고 함수를 끝낸다.
+        if (r == n) {
+            count++;
+            return;
+        }
+
+        for (int i = 0; i < n; i++) {
+            // 해당 위치가 공격받는다면 넘어간다.
+            if (board[r][i] > 0) {
+                continue;
+            }
+            setSafe(board, 1, r, i);
+            NQueen(board, r + 1);
+            // 백트래킹
+            setSafe(board, -1, r, i);
+        }
+    }
+
+// val 값 만큼 해당 위치에서 공격 가능한 위치의 값을 늘린다.
+    private void setSafe(int[][] board, int val, int r, int c) {
+        // 아래로 향하는 공격만 확인해도 됨.
+        for (int dc = -1; dc <= 1; dc++) {
+            int tr = r;
+            int tc = c;
+            while(0 <= tr && tr < n && 0 <= tc && tc < n) {
+                board[tr][tc] += val;
+                tr++;
+                tc += dc;
+            }
+        }
+    }
+}
+```
+
+---
