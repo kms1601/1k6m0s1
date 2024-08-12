@@ -28,6 +28,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "upload.acmicpc.net",
       },
+      {
+        protocol: "https",
+        hostname: "assets.leetcode.com",
+      }
     ],
   },
 };
