@@ -1,0 +1,161 @@
+---
+title: '[99클럽 코테 스터디] - 23일차 TIL'
+description: '23일차 문제 [IPO]'
+date: '2024-08-13'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - LeetCode Hard [<a href="https://leetcode.com/problems/ipo/description/" target="_blank" className="a-mdx">IPO</a>]
+
+### IPO
+
+Suppose LeetCode will start its IPO soon. In order to sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the IPO. Since it has limited resources, it can only finish at most **k** distinct projects before the IPO. Help LeetCode design the best way to maximize its total capital after finishing at most **k** distinct projects.
+
+You are given **n** projects where the **ith** project has a pure profit **profits[i]** and a minimum capital of **capital[i]** is needed to start it.
+
+Initially, you have **w** capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital.
+
+Pick a list of at most **k** distinct projects from given projects to maximize your final capital, and return the final maximized capital.
+
+The answer is guaranteed to fit in a 32-bit signed integer.
+
+### Examples
+
+#### Example 1:
+
+<pre className="p-0">
+  <div className="hljs">
+    Input: k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]
+    Output: 4
+    Explanation: Since your initial capital is 0, you can only start the project indexed 0.
+    After finishing it you will obtain profit 1 and your capital becomes 1.
+    With capital 1, you can either start the project indexed 1 or the project indexed 2.
+    Since you can choose at most 2 projects, you need to finish the project indexed 2 to get the maximum capital.
+    Therefore, output the final maximized capital, which is 0 + 1 + 3 = 4.
+  </div>
+</pre>
+
+#### Example 2:
+
+<pre className="p-0">
+  <div className="hljs">
+    Input: k = 3, w = 0, profits = [1,2,3], capital = [0,1,2]
+    Output: 6
+  </div>
+</pre>
+
+### Constraints
+
+- 1 {"<="} k {"<="} 10⁵
+- 0 {"<="} w {"<="} 10⁹
+- n {"=="} profits.length
+- n {"=="} capital.length
+- 1 {"<="} n {"<="} 10⁵
+- 0 {"<="} profits[i] {"<="} 10⁴
+- 0 {"<="} capital[i] {"<="} 10⁹
+
+---
+
+## 문제 번역
+
+### 기업공개
+
+LeetCode가 곧 기업공개를 한다고 가정해보겠습니다. 벤쳐 캐피탈에 주식을 좋은 가격으로 팔기 위해 LeetCode는 기업공개 전 여러 프로젝트를 진행하기로 합니다. 하지만 제한된 자원으로 인해 기업공개 전 최대 **k**개의 프로젝트만 진행 가능합니다. 최대 **k**개의 프로젝트를 진행하여 총 자본을 극대화할 수 있는 방법을 알 수 있게 LeetCode를 도와주세요.
+
+**n**개의 프로젝트가 주어집니다. **i**번째 프로젝트는 **profits[i]** 의 순익과 **capital[i]** 의 시작하기 위한 자본으로 주어집니다.
+
+처음에는 **w**의 자본을 가지고 있습니다. 프로젝트를 끝내면, 프로젝트의 순익이 총 자본에 추가됩니다.
+
+주어진 프로젝트에서 최종 자본이 최대가 되도록 최대 **k**개의 프로젝트를 수행하였을 때, 최종 자본을 반환하세요.
+
+정답은 32비트 부호있는 정수임이 보장됩니다.
+
+### 예제
+
+#### 예제 1:
+
+<pre className="p-0">
+  <div className="hljs">
+    입력: k = 2, w = 0, profits = [1,2,3], capital = [0,1,1]
+    출력: 4
+    설명: 초기 자본이 0이기 때문에 0인덱스의 프로젝트만 수행 가능합니다.
+    프로젝트를 끝내면, 1의 순익을 얻고 자본은 1이 됩니다.
+    자본이 1이여서 1, 2인덱스의 프로젝트를 전부 수행할 수 있습니다.
+    최대 2개의 프로젝트만 수행 가능하므로, 최대 자본을 얻기 위해서는 2인덱스의 프로젝트를 수행해야 합니다.
+    따라서, 0 + 1 + 3 = 4를 출력합니다.
+  </div>
+</pre>
+
+#### Example 2:
+
+<pre className="p-0">
+  <div className="hljs">
+    입력: k = 3, w = 0, profits = [1,2,3], capital = [0,1,2]
+    출력: 6
+  </div>
+</pre>
+
+### 제한 사항
+
+- 1 {"<="} k {"<="} 10⁵
+- 0 {"<="} w {"<="} 10⁹
+- n {"=="} profits.length
+- n {"=="} capital.length
+- 1 {"<="} n {"<="} 10⁵
+- 0 {"<="} profits[i] {"<="} 10⁴
+- 0 {"<="} capital[i] {"<="} 10⁹
+
+---
+
+## 풀이 과정
+
+### 탐욕법
+
+자본을 극대화하기 위해서는 현재 진행 가능한 프로젝트 중에서 가장 순익이 큰 프로젝트를 진행하면 된다. 프로젝트가 진행 가능하려면 필요한 자본이 현재 자본의 이하이면 가능한 것이다.
+
+즉, 다음과 같은 방식으로 알아낼 수 있다.
+
+- 프로젝트 리스트에서 필요한 자본이 현재 자본의 이하인 것들을 진행 가능한 프로젝트 리스트로 옮긴다.
+- 진행 가능한 프로젝트 리스트에서 가장 순익이 큰 프로젝트를 진행한다.
+- 진행한 프로젝트의 순익을 현재 자본에 더한다.
+
+### 우선순위 큐
+
+진행 가능한 프로젝트를 알아내는 것과 가장 순익이 큰 프로젝트를 알아내는 것 전부 우선순위 큐로 효율적으로 알아낼 수 있다.
+
+- 프로젝트 리스트: 필요 자본 오름차순으로 우선순위 큐에 넣는다. 맨 앞의 값은 가장 자본이 낮은 프로젝트이다.
+- 진행 가능한 프로젝트 리스트: 순익 내림차순으로 우선순위 큐에 넣는다. 맨 앞의 값은 가장 순익이 큰 프로젝트이다.
+
+### 정답
+
+```java
+class Solution {
+    public int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
+        int n = profits.length;
+
+        PriorityQueue<int[]> projectList = new PriorityQueue<>((p1, p2) -> Integer.compare(p1[1], p2[1])); // 프로젝트 리스트
+        PriorityQueue<int[]> canStart = new PriorityQueue<>((p1, p2) -> Integer.compare(p2[0], p1[0])); // 진행 가능한 프로젝트 리스트
+
+        // 프로젝트 리스트에 넣기.
+        for (int i = 0; i < n; i++) {
+            projectList.offer(new int[]{profits[i], capital[i]});
+        }
+
+        // 최대 k번 진행 가능
+        for (int i = 0; i < k; i++) {
+            // 맨 앞 프로젝트의 필요 자본이 현재 자본 이하일 때, 진행 가능한 프로젝트 리스트에 추가한다.
+            while (!projectList.isEmpty() && projectList.peek()[1] <= w) {
+                canStart.offer(projectList.poll());
+            }
+
+            if (canStart.isEmpty()) break; // 진행 가능한 프로젝트가 없으면 종료.
+            w += canStart.poll()[0]; // 가장 순익이 높은 프로젝트를 진행한다. 자본에 순익을 더한다.
+        }
+        return w;
+    }
+}
+```
+
+
+---
