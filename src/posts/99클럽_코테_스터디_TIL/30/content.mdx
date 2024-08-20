@@ -1,0 +1,186 @@
+---
+title: '[99클럽 코테 스터디] - 30일차 TIL'
+description: '30일차 문제 [Minimum Operations to Make a Subsequence]'
+date: '2024-08-20'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - LeetCode Hard [<a href="https://leetcode.com/problems/minimum-operations-to-make-a-subsequence/description/" target="_blank" className="a-mdx">Minimum Operations to Make a Subsequence</a>]
+
+### Minimum Operations to Make a Subsequence
+
+You are given an array <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>target</span> that consists of **distinct** integers and another integer array <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr</span> that **can** have duplicates.
+
+In one operation, you can insert any integer at any position in <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr</span>. For example, if <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr = [1,4,1,2]</span>, you can add <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>3</span> in the middle and make it <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>[1,4,3,1,2]</span>. Note that you can insert the integer at the very beginning or end of the array.
+
+Return *the **minimum** number of operations needed to make <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>target</span> a **subsequence** of <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr</span>.*
+
+A **subsequence** of an array is a new array generated from the original array by deleting some elements (possibly none) without changing the remaining elements' relative order. For example, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>[2,7,4]</span> is a subsequence of <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>[4,<ins>2</ins>,3,<ins>7</ins>,2,1,<ins>4</ins>]</span> (the underlined elements), while <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>[2,4,2]</span> is not.
+
+### Examples
+
+#### Example 1:
+
+<pre className="p-0">
+  <div className="hljs">
+    Input: target = [5,1,3], **arr** = [9,4,2,3,4]
+    Output: 2
+    Explanation: You can add 5 and 1 in such a way that makes **arr** = [5,9,4,1,2,3,4], then target will be a subsequence of **arr**.
+  </div>
+</pre>
+
+#### Example 2:
+
+<pre className="p-0">
+  <div className="hljs">
+    Input: target = [6,4,8,1,3,2], **arr** = [4,7,6,2,3,8,6,1]
+    Output: 3
+  </div>
+</pre>
+
+### Constraints
+
+- 1 {"<="} target.length, arr.length {"<="} 105
+- 1 {"<="} target[i], arr[i] {"<="} 109
+- target contains no duplicates.
+
+---
+
+## 문제 번역
+
+### 최소 조작으로 부분수열 만들기
+
+**서로 다른** 정수로 이루어진 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>target</span>과 중복이 **가능한** <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr</span>이 주어집니다.
+
+한번 조작을 하면 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr</span>의 아무 위치에 정수를 삽입할 수 있습니다. 예를 들어, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr = [1,4,1,2]</span>일 때, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>3</span>을 더해서 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>[1,4,3,1,2]</span>로 바꿀 수 있습니다. 배열의 맨 앞과 맨 뒤에도 값을 넣을 수 있습니다.
+
+<span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>target</span>을 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr</span>의 **부분수열**로 만들기 위한 **최소** 조작 횟수를 반환하세요.
+
+배열의 **부분수열**이란 본래 배열에서 요소의 순서를 변경하지 않고 일부 요소를 제거하여(또는 제거하지 않고) 만든 배열입니다. 예를 들어, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>[4,<ins>2</ins>,3,<ins>7</ins>,2,1,<ins>4</ins>]</span>에서 밑줄 친 부분에서 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>[2,7,4]</span>은 부분수열이고, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>[2,4,2]</span>는 부분수열이 아닙니다.
+
+### 예제
+
+#### 예제 1:
+
+<pre className="p-0">
+  <div className="hljs">
+    입력: target = [5,1,3], **arr** = [9,4,2,3,4]
+    출력: 2
+    설명: 5와 1을 넣어서 **arr** = [5,9,4,1,2,3,4] 로 만들면, target은 **arr**의 부분수열이 됩니다.
+  </div>
+</pre>
+
+#### 예제 2:
+
+<pre className="p-0">
+  <div className="hljs">
+    입력: target = [6,4,8,1,3,2], **arr** = [4,7,6,2,3,8,6,1]
+    출력: 3
+  </div>
+</pre>
+
+### 제한 사항
+
+- 1 {"<="} target.length, arr.length {"<="} 10⁵
+- 1 {"<="} target[i], arr[i] {"<="} 10⁹
+- target 은 중복된 값이 없습니다.
+
+---
+
+## 풀이 과정
+
+### LCS
+
+LCS란 최장 공통 부분수열(Longest Common Subsequence)로 이 문제에 적용이 가능하다. 두 배열의 최장 공통 부분수열을 구하고 target의 길이에서 부분수열의 길이를 빼면 답을 구할 수 있다.
+
+하지만 LCS 알고리즘의 시간복잡도는 O(N²)이고 문제 조건에서 각각의 배열의 길이는 최대 100,000이므로 LCS 알고리즘으로는 풀이가 불가능하다.
+
+### LIS
+
+LIS란 최장 증가 부분수열(Longest Increasing Subsequence)로 배열 내 요소가 오름차순인 부분수열중 가장 긴 것을 LIS라고 한다.
+
+그렇다면, 이 문제에서 어떻게 LIS 알고리즘을 적용할 수 있을까?
+
+문제에서 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>target</span>은 중복된 값이 없다고 주어졌다. 즉, 숫자의 값이 아닌 숫자의 인덱스로 숫자의 위치를 비교할 수 있다. 예를 들어, 예제 2번의 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>target = [6,4,8,1,3,2]</span>에서 6-0, 4-1, 8-2, 1-3, 3-4, 2-5로 각 숫자에 인덱스를 부여할 수 있다.
+
+<span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr</span>의 요소에 대해
+
+- target에 있으면 연결되는 인덱스로 변경
+- target에 없으면 제거
+
+을 적용하여 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr</span>의 요소를 변경해준다. 예를 들어 예제 2번의 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr = [4,7,6,2,3,8,6,1]</span>에서 위 작업을 진행하면
+
+- [1, 0, 5, 4, 2, 0, 3]
+
+으로 변경된다.
+
+이 배열에서 LIS를 구하면 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>arr</span>의 부분 수열 중, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>target</span>의 부분수열 중 가장 긴 수열이 된다.
+
+즉, 이렇게 변환한 배열을 LIS 알고리즘을 이용하여 가장 긴 증가수열의 길이를 구하면 된다. 시간복잡도는 O(NlogN)으로 충분히 풀이가 가능하다.
+
+### LIS 구현 - 이분탐색
+
+LIS 알고리즘은 이분탐색으로 구현할 수 있다.
+
+- 주어진 배열의 값을 순서대로 집어넣는다.
+    - 이분탐색으로 LIS내 위치를 찾는다.
+    - 중간에 값을 넣어야 하면 기존 값을 대체하여 넣는다.
+
+쉽게 말하면 현재 원소를 LIS를 유지하기 위한 최적의 위치를 찾아서 넣는 것이다.
+
+### 정답
+
+```java
+class Solution {
+    public int minOperations(int[] target, int[] arr) {
+        // 값 - 인덱스 부여
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < target.length; i++) {
+            map.put(target[i], i);
+        }
+
+        // arr을 target의 인덱스로 변경
+        List<Integer> toIndex = new ArrayList<>();
+        for (int a : arr) {
+            if (!map.containsKey(a)) continue; // target에 없는 값이면 제거
+            toIndex.add(map.get(a));
+        }
+
+        // 만약 arr에 target의 숫자가 없다면 target숫자를 전부 삽입해야 하므로 target의 길이를 반환
+        if (toIndex.size() == 0) {
+            return target.length;
+        }
+
+        List<Integer> lis = new ArrayList<>();
+        // 첫번째 값을 넣고 LIS 알고리즘 시작
+        lis.add(toIndex.get(0));
+        for (int i = 1; i < toIndex.size(); i++) {
+            int index = toIndex.get(i);
+
+            // LIS의 맨 뒤 값이 현재 값보다 작다면 맨 뒤에 추가
+            if (lis.get(lis.size() - 1) < index) {
+                lis.add(index);
+                continue;
+            }
+
+            // 이분탐색으로 대체할 인덱스 찾기
+            int left = 0, right = lis.size() - 1;
+            while (left <= right) {
+                int mid = (left + right) / 2;
+
+                if (lis.get(mid) >= index) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }
+            lis.set(left, index);
+        }
+        // 추가로 삽입해야하는 개수를 구해야 하므로 정답은 (target 길이) - (LIS 길이)
+        return target.length - lis.size();
+    }
+}
+```
+
+---
