@@ -1,0 +1,216 @@
+---
+title: '[99클럽 코테 스터디] - 32일차 TIL'
+description: '32일차 문제 [아이템 줍기]'
+date: '2024-08-22'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.3 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/87694" target="_blank" className="a-mdx">아이템 줍기</a>]
+
+### 문제 설명
+
+다음과 같은 다각형 모양 지형에서 캐릭터가 아이템을 줍기 위해 이동하려 합니다.
+
+<img className="rounded-xl" src={"https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/9b96b07f-72db-4b1c-bd7a-6a9c9b8d0dc6/rect_1.png"} alt={"image1"}/>
+
+지형은 각 변이 x축, y축과 평행한 직사각형이 겹쳐진 형태로 표현하며, 캐릭터는 이 다각형의 둘레(굵은 선)를 따라서 이동합니다.
+
+만약 직사각형을 겹친 후 다음과 같이 중앙에 빈 공간이 생기는 경우, 다각형의 가장 바깥쪽 테두리가 캐릭터의 이동 경로가 됩니다.
+
+<img className="rounded-xl" src={"https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/38b0739b-8dd8-40d8-ac44-c71678d28d07/rect_2.png"} alt={"image2"}/>
+
+단, 서로 다른 두 직사각형의 x축 좌표 또는 y축 좌표가 같은 경우는 없습니다.
+
+<img className="rounded-xl" src={"https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/ec976181-987e-494e-bb2d-0615ce16252f/rect_4.png"} alt={"image3"}/>
+
+즉, 위 그림처럼 서로 다른 두 직사각형이 꼭짓점에서 만나거나, 변이 겹치는 경우 등은 없습니다.
+
+다음 그림과 같이 지형이 2개 이상으로 분리된 경우도 없습니다.
+
+<img className="rounded-xl" src={"https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/7eda8d92-ebe0-4b5f-bd15-0c9dc7af3a3e/rect_3.png"} alt={"image4"}/>
+
+한 직사각형이 다른 직사각형 안에 완전히 포함되는 경우 또한 없습니다.
+
+<img className="rounded-xl" src={"https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/1e178b0d-6580-4981-aae3-dd82a1b95362/rect_7.png"} alt={"image5"}/>
+
+지형을 나타내는 직사각형이 담긴 2차원 배열 rectangle, 초기 캐릭터의 위치 characterX, characterY, 아이템의 위치 itemX, itemY가 solution 함수의 매개변수로 주어질 때, 캐릭터가 아이템을 줍기 위해 이동해야 하는 가장 짧은 거리를 return 하도록 solution 함수를 완성해주세요.
+
+### 제한사항
+
+- rectangle의 세로(행) 길이는 1 이상 4 이하입니다.
+- rectangle의 원소는 각 직사각형의 [좌측 하단 x, 좌측 하단 y, 우측 상단 x, 우측 상단 y] 좌표 형태입니다.
+    - 직사각형을 나타내는 모든 좌표값은 1 이상 50 이하인 자연수입니다.
+    - 서로 다른 두 직사각형의 x축 좌표, 혹은 y축 좌표가 같은 경우는 없습니다.
+    - 문제에 주어진 조건에 맞는 직사각형만 입력으로 주어집니다.
+- charcterX, charcterY는 1 이상 50 이하인 자연수입니다.
+    - 지형을 나타내는 다각형 테두리 위의 한 점이 주어집니다.
+- itemX, itemY는 1 이상 50 이하인 자연수입니다.
+    - 지형을 나타내는 다각형 테두리 위의 한 점이 주어집니다.
+- 캐릭터와 아이템의 처음 위치가 같은 경우는 없습니다.
+
+---
+
+- 전체 배점의 50%는 직사각형이 1개인 경우입니다.
+- 전체 배점의 25%는 직사각형이 2개인 경우입니다.
+- 전체 배점의 25%는 직사각형이 3개 또는 4개인 경우입니다.
+
+---
+
+### 입출력 예
+
+| rectangle                                 | characterX | characterY | itemX | itemY | result |
+|-------------------------------------------|------------|------------|-------|-------|--------|
+| [[1,1,7,4],[3,2,5,5],[4,3,6,9],[2,6,8,8]] | 1          | 3          | 7     | 8     | 17     |
+| [[1,1,8,4],[2,2,4,9],[3,6,9,8],[6,3,7,7]] | 9          | 7          | 6     | 1     | 11     |
+| [[1,1,5,7]]                               | 1          | 1          | 4     | 7     | 9      |
+| [[2,1,7,5],[6,4,10,10]]                   | 3          | 1          | 7     | 10    | 15     |
+| [[2,2,5,5],[1,3,6,4],[3,1,4,6]]           | 1          | 4          | 6     | 3     | 10     |
+
+
+### 입출력 예 설명
+
+#### 입출력 예 #1
+
+<img className="rounded-xl" src={"https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/7b89552b-f7b6-47e7-8bbd-deaf01907f70/rect_5.png"} alt={"image6"}/>
+
+캐릭터 위치는 (1, 3)이며, 아이템 위치는 (7, 8)입니다. 위 그림과 같이 굵은 선을 따라 이동하는 경로가 가장 짧습니다.
+
+#### 입출력 예 #2
+
+<img className="rounded-xl" src={"https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/ac6911d0-e386-472b-a109-2542214c8d6b/rect_6.png"} alt={"image7"}/>
+
+캐릭터 위치는 (9, 7)이며, 아이템 위치는 (6, 1)입니다. 위 그림과 같이 굵은 선을 따라 이동하는 경로가 가장 짧습니다.
+
+#### 입출력 예 #3
+
+<img className="rounded-xl" src={"https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/9c47ca5c-df4b-4b2e-8c5b-faf0815de665/rect_8.png"} alt={"image8"}/>
+
+캐릭터 위치는 (1, 1)이며, 아이템 위치는 (4, 7)입니다. 위 그림과 같이 굵은 선을 따라 이동하는 경로가 가장 짧습니다.
+
+#### 입출력 예 #4, #5
+
+설명 생략
+
+---
+
+## 풀이 과정
+
+### 이동 경로 구하기
+
+먼저 캐릭터가 움직일 수 있는 경로를 구해야 한다. 이동 경로를 구하기 위해서는
+
+1. 각 직사각형을 격자에 그린다.
+2. 외부에서 BFS를 통해 직사각형의 외부를 알아낸다.
+
+여기서 구석진 부분도 포함하기 위해 BFS 실행 시 대각선 방향도 체크해준다.
+
+하지만 이렇게 하면 한가지 문제점이 생긴다.
+
+### 문제 해결
+
+다음과 같은 상황을 생각해보자
+
+![image9](https://drive.google.com/thumbnail?id=1yUUKryGqr5RUuvO_hQaKWiG4u9nPHJ6M&sz=w1000)
+
+여기서 빈 공간을 0, 이동 가능한 경로를 1로 하여 추상화하여 나타내면
+
+<pre>
+  <code className="hljs">
+    0000000<br></br>0001110<br></br>0111010<br></br>0111010<br></br>0001110<br></br>0000000
+  </code>
+</pre>
+
+그림 상으로는 (2, 2) 에서 (3, 2)로 이동이 불가능하지만 추상화하여 나타내면 마치 이동할 수 있을 것처럼 보인다. 해당 칸에서 위 부분인지 아래 부분인지 구분을 하지 않기 때문이다.
+
+이것을 해결하기 위해서는 어떻게 해야 할까? 모든 좌표값에 2배를 하여 크기를 키워보자
+
+<pre>
+  <code className="hljs">
+    00000000000000<br></br>00000000000000<br></br>00000011111100<br></br>00000010000100<br></br>00111110000100<br></br>00100000000100<br></br>00100000000100<br></br>00111110000100<br></br>00000010000100<br></br>00000011111100<br></br>00000000000000<br></br>00000000000000
+  </code>
+</pre>
+
+이런식으로 좌표값을 전부 2배를 해서 처리하면 확실한 이동 경로를 알 수 있다.
+
+즉, 경로를 구하기 전에 직사각형의 좌표값을 2배하면 된다. 또한 모든 좌표를 2배로 하였으므로 정답을 구하고 2로 나누어주면 된다.
+
+### 가장 짧은 경로
+
+시작 위치에서 직사각형의 외부를 따라 BFS를 진행하면 된다. 여기서는 대각선 방향을 체크하지 않는다. 주의할 점은 좌표가 전부 2배가 되었으므로 시작 위치, 도착 위치도 2배를 해주어야 한다.
+
+### 정답
+
+```java
+import java.util.*;
+
+class Solution {
+    final int[] DX = {1, -1, 0, 0, 1, 1, -1, -1};
+    final int[] DY = {0, 0, 1, -1, 1, -1, 1, -1};
+
+    public int solution(int[][] rectangle, int characterX, int characterY, int itemX, int itemY) {
+        // 시작 좌표, 도착 좌표에 2배
+        characterX *= 2;
+        characterY *= 2;
+        itemX *= 2;
+        itemY *= 2;
+
+        // 문제에서 최댓값은 50, 외부 판정을 간단히 하기 위해 +2, 좌표가 2배 되었으므로 104×104 크기로 잡는다.
+        int[][] map = new int[104][104];
+
+        // 각 직사각형의 좌표에 2배를 하고 1로 나타내어 그린다.
+        for (int[] rect : rectangle) {
+            for (int x = rect[0] * 2; x <= rect[2] * 2; x++) {
+                for (int y = rect[1] * 2; y <= rect[3] * 2; y++) {
+                    map[x][y] = 1;
+                }
+            }
+        }
+
+        // 직사각형의 외부 판정(BFS)
+        Deque<int[]> queue = new ArrayDeque<>();
+        queue.add(new int[]{0, 0});
+        map[0][0] = 2; // 방문 체크는 2로 한다.
+        while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            // 구석진 부분 확인을 위해 대각선 방향도 확인한다.
+            for (int i = 0; i < 8; i++) {
+                int nx = cur[0] + DX[i];
+                int ny = cur[1] + DY[i];
+                if (0 > nx || nx > 103 || 0 > ny || ny > 103 || map[nx][ny] >= 2) continue;
+                if (map[nx][ny] == 1) {
+                    map[nx][ny] = 3; // 외부일 경우 3으로 표시한다(이동 가능한 경로).
+                    continue;
+                }
+                queue.add(new int[]{nx, ny});
+                map[nx][ny] = 2;
+            }
+        }
+
+        int answer = 0;
+        queue.add(new int[]{characterX, characterY, 0});
+        map[characterX][characterY] = 4; // 방문 체크는 4로 한다.
+        while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            if (cur[0] == itemX && cur[1] == itemY) {
+                answer = cur[2];
+                break;
+            }
+
+            for (int i = 0; i < 4; i++) {
+                int nx = cur[0] + DX[i];
+                int ny = cur[1] + DY[i];
+
+                // 이동 가능한 경로로만 이동함이 보장되어 있으므로 방문 여부만 확인한다.
+                if (map[nx][ny] != 3) continue;
+                queue.add(new int[]{nx, ny, cur[2] + 1});
+                map[nx][ny] = 4;
+            }
+        }
+
+        return answer / 2;
+    }
+}
+```
+
+---
