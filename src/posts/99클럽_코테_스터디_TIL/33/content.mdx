@@ -1,0 +1,135 @@
+---
+title: '[99클럽 코테 스터디] - 33일차 TIL'
+description: '33일차 문제 [단어 변환]'
+date: '2024-08-23'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.3 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/43163" target="_blank" className="a-mdx">단어 변환</a>]
+
+### 문제 설명
+
+두 개의 단어 begin, target과 단어의 집합 words가 있습니다. 아래와 같은 규칙을 이용하여 begin에서 target으로 변환하는 가장 짧은 변환 과정을 찾으려고 합니다.
+
+<pre>
+  <code className="hljs">
+    <span>1. 한 번에 한 개의 알파벳만 바꿀 수 있습니다.</span><br></br>2. words에 있는 단어로만 변환할 수 있습니다.
+  </code>
+</pre>
+
+예를 들어 begin이 "hit", target가 "cog", words가 ["hot","dot","dog","lot","log","cog"]라면 "hit" -> "hot" -> "dot" -> "dog" -> "cog"와 같이 4단계를 거쳐 변환할 수 있습니다.
+
+두 개의 단어 begin, target과 단어의 집합 words가 매개변수로 주어질 때, 최소 몇 단계의 과정을 거쳐 begin을 target으로 변환할 수 있는지 return 하도록 solution 함수를 작성해주세요.
+
+### 제한사항
+
+- 각 단어는 알파벳 소문자로만 이루어져 있습니다.
+- 각 단어의 길이는 3 이상 10 이하이며 모든 단어의 길이는 같습니다.
+- words에는 3개 이상 50개 이하의 단어가 있으며 중복되는 단어는 없습니다.
+- begin과 target은 같지 않습니다.
+- 변환할 수 없는 경우에는 0를 return 합니다.
+
+### 입출력 예
+
+| begin | target | words                                      | return |
+|-------|--------|--------------------------------------------|--------|
+| "hit" | "cog"  | ["hot", "dot", "dog", "lot", "log", "cog"] | 4      |
+| "hit" | "cog"  | ["hot", "dot", "dog", "lot", "log"]        | 0      |
+
+
+### 입출력 예 설명
+
+#### 예제 #1
+
+문제에 나온 예와 같습니다.
+
+#### 예제 #2
+
+target인 "cog"는 words 안에 없기 때문에 변환할 수 없습니다.
+
+---
+
+## 풀이 과정
+
+### 변환 가능 확인하기
+
+어떤 문자열 a에서 b로 변환이 가능하기 위해서는 각 문자마다 다른 문자의 개수가 1이면 변환이 가능하다. 다음과 같은 코드로 확인이 가능하다.
+
+```pseudo
+문자열 길이 = len, 현재 문자 = a, 변환할 문자 = b
+int count = 0;
+for (int i = 0; i < len; i++) {
+    if (a.charAt() != b.charAt(i)) count++;
+}
+
+if (count == 1) 변환 가능
+```
+
+### BFS
+
+현재 문자에서 words내 문자열을 순회하면서 이미 변환 가능을 확인한 문자열이 아니고 변환이 가능한 문자이면 변환할 문자열의 변환 횟수를 (현재 문자열 변환 횟수) + 1을 한다. 이런식으로 target에 도달할 때까지 BFS를 수행하면 된다. 만약 target에 도달하지 못했으면 0을 반환한다.
+
+### Data 클래스
+
+BFS를 사용하기 위해 Data 클래스를 만든다.
+
+```java
+class Data {
+    String str; // 현재 문자열
+    int count; // 변환 횟수
+
+    Data(String str, int count) {
+        this.str = str;
+        this.count = count;
+    }
+}
+```
+
+### 정답
+
+```java
+import java.util.*;
+
+class Solution {
+    class Data {
+        String str;
+        int count;
+
+        Data(String str, int count) {
+            this.str = str;
+            this.count = count;
+        }
+    }
+
+    public int solution(String begin, String target, String[] words) {
+        int len = begin.length();
+        Deque<Data> queue = new ArrayDeque<>();
+        Set<String> visit = new HashSet<>(); // 방문 확인
+        queue.add(new Data(begin, 0));
+        visit.add(begin);
+
+        while (!queue.isEmpty()) {
+            Data cur = queue.poll();
+
+            // 모든 문자열 변환 가능성 확인
+            for (String word : words) {
+                if (visit.contains(word)) continue; // 이미 방문한 문자열을 패스
+                int count = 0;
+                for (int i = 0; i < len; i++) {
+                    if (cur.str.charAt(i) != word.charAt(i)) count++;
+                }
+
+                if (count != 1) continue; // 변환이 불가능하면 패스
+                if (word.equals(target)) return cur.count + 1;
+                queue.add(new Data(word, cur.count + 1));
+                visit.add(word);
+            }
+        }
+
+        return 0; // target에 도달 못하면 0 반환
+    }
+}
+```
+
+---
