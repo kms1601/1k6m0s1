@@ -1,0 +1,160 @@
+---
+title: '[99클럽 코테 스터디] - 34일차 TIL'
+description: '34일차 문제 [여행경로]'
+date: '2024-08-24'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.3 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/43164" target="_blank" className="a-mdx">여행경로</a>]
+
+### 문제 설명
+
+주어진 항공권을 모두 이용하여 여행경로를 짜려고 합니다. 항상 "ICN" 공항에서 출발합니다.
+
+항공권 정보가 담긴 2차원 배열 tickets가 매개변수로 주어질 때, 방문하는 공항 경로를 배열에 담아 return 하도록 solution 함수를 작성해주세요.
+
+### 제한사항
+
+- 모든 공항은 알파벳 대문자 3글자로 이루어집니다.
+- 주어진 공항 수는 3개 이상 10,000개 이하입니다.
+- tickets의 각 행 [a, b]는 a 공항에서 b 공항으로 가는 항공권이 있다는 의미입니다.
+- 주어진 항공권은 모두 사용해야 합니다.
+- 만일 가능한 경로가 2개 이상일 경우 알파벳 순서가 앞서는 경로를 return 합니다.
+- 모든 도시를 방문할 수 없는 경우는 주어지지 않습니다.
+
+### 입출력 예
+
+| tickets                                                                         | return                                     |
+|---------------------------------------------------------------------------------|--------------------------------------------|
+| [["ICN", "JFK"], ["HND", "IAD"], ["JFK", "HND"]]                                | ["ICN", "JFK", "HND", "IAD"]               |
+| [["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]] | ["ICN", "ATL", "ICN", "SFO", "ATL", "SFO"] |
+
+
+### 입출력 예 설명
+
+#### 예제 #1
+
+["ICN", "JFK", "HND", "IAD"] 순으로 방문할 수 있습니다.
+
+#### 예제 #2
+
+["ICN", "SFO", "ATL", "ICN", "ATL", "SFO"] 순으로 방문할 수도 있지만 ["ICN", "ATL", "ICN", "SFO", "ATL", "SFO"] 가 알파벳 순으로 앞섭니다.
+
+---
+
+## 풀이 과정
+
+### return의 길이
+
+정답은 String[]에서 List\<String\>으로 변경해주었다.
+
+return의 길이는 모든 항공권을 전부 사용해야 한다고 했으므로 tickets.length + 1이 return의 길이가 된다. 즉, 정답 배열에 경로를 추가하다가 길이가 tickets.length + 1이 되면 정답을 반환하면 된다.
+
+이 값을 활용하기 위해 전역변수로 설정하였다.
+
+### map으로 항공권 정리하기
+
+먼저 Ticket 클래스를 만들어주었다. 도착 지점과 사용 여부를 필드로 한다. 또한. Ticket클래스에서 오름차순으로 정렬해야 하기 때문에 Comparable 인터페이스를 구현해주었다.
+
+단, 티켓 정렬 시, TreeSet을 이용할 것이기 때문에 동일한 항공권이 존재하는 케이스 처리를 위해서 동일한 티켓을 구분해 주어야 한다.
+
+```java
+class Ticket implements Comparable<Ticket> {
+    String to; // 도착 지점
+    boolean used = false; // 사용 여부
+
+    Ticket(String to) {
+        this.to = to;
+    }
+
+    // 티켓의 오름차순 정렬을 위해 구현
+    @Override
+    public int compareTo(Ticket t) {
+        int result = this.to.compareTo(t.to);
+        if (result == 0) return 1; // 동일한 티켓은 구분해준다.
+        return result;
+    }
+}
+```
+
+그리고 Map\<String, Set\<Ticket\>\>을 이용해서 시작 지점 기준으로 항공권을 정리하였다.
+
+```java
+Map<String, Set<Ticket>> map = new HashMap<>();
+for (String[] ticket : tickets) {
+    if (!map.containsKey(ticket[0])) map.put(ticket[0], new TreeSet<>());
+    map.get(ticket[0]).add(new Ticket(ticket[1]));
+}
+```
+
+### DFS, 백트래킹
+
+DFS와 백트래킹을 사용하여 경로를 알아낸다. flag변수를 이용해서 answer가 완성되면 아무런 조작을 하지 않고 함수를 빠져나오도록 해준다.
+
+### 정답
+
+```java
+import java.util.*;
+
+class Solution {
+    Map<String, Set<Ticket>> map = new HashMap<>();
+    List<String> answer = new ArrayList<>();
+    int count = 0;
+    boolean flag = false;
+
+    class Ticket implements Comparable<Ticket> {
+        String to;
+        boolean used = false;
+
+        Ticket(String to) {
+            this.to = to;
+        }
+
+        @Override
+        public int compareTo(Ticket t) {
+            int result = this.to.compareTo(t.to);
+            if (result == 0) return 1;
+            return result;
+        }
+    }
+
+    public List<String> solution(String[][] tickets) {
+        count = tickets.length;
+
+        for (String[] ticket : tickets) {
+            if (!map.containsKey(ticket[0])) map.put(ticket[0], new TreeSet<>());
+            map.get(ticket[0]).add(new Ticket(ticket[1]));
+        }
+
+        answer.add("ICN");
+        dfs("ICN", 1);
+
+        return answer;
+    }
+
+    // DFS
+    private void dfs(String cur, int count) {
+        // 해당 공항을 시작 지점으로 하는 항공권이 없으면
+        if (!map.containsKey(cur)) return;
+
+        for (Ticket next : map.get(cur)) {
+            if (next.used) continue;
+
+            if (!flag) answer.add(next.to); // answer가 완성되었으면 아무런 조작을 하지 않는다.
+            next.used = true;
+            if (count == this.count) {
+                flag = true;
+            }
+
+            dfs(next.to, count + 1);
+
+            // 백트래킹
+            if (!flag) answer.remove(answer.size() - 1); // answer가 완성되었으면 아무런 조작을 하지 않는다.
+            next.used = false;
+        }
+    }
+}
+```
+
+---
