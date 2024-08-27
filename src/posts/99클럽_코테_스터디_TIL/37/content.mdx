@@ -1,0 +1,302 @@
+---
+title: '[99클럽 코테 스터디] - 37일차 TIL'
+description: '37일차 문제 [2048]'
+date: '2024-08-27'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 백준 골드 I [<a href="https://www.acmicpc.net/problem/12100" target="_blank" className="a-mdx">2048</a>]
+
+### 문제
+
+2048 게임은 4×4 크기의 보드에서 혼자 즐기는 재미있는 게임이다. 이 [링크](https://play2048.co/)를 누르면 게임을 해볼 수 있다.
+
+이 게임에서 한 번의 이동은 보드 위에 있는 전체 블록을 상하좌우 네 방향 중 하나로 이동시키는 것이다. 이때, 같은 값을 갖는 두 블록이 충돌하면 두 블록은 하나로 합쳐지게 된다. 한 번의 이동에서 이미 합쳐진 블록은 또 다른 블록과 다시 합쳐질 수 없다. (실제 게임에서는 이동을 한 번 할 때마다 블록이 추가되지만, 이 문제에서 블록이 추가되는 경우는 없다)
+
+
+| ![image1](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/1.png) | ![image2](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/2.png) | ![iameg3](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/3.png) |
+|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| \<그림 1\>                                                                                 | \<그림 2\>                                                                                 | \<그림 3\>                                                                                 |
+
+\<그림 1\>의 경우에서 위로 블록을 이동시키면 \<그림 2\>의 상태가 된다. 여기서, 왼쪽으로 블록을 이동시키면 \<그림 3\>의 상태가 된다.
+
+| ![image4](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/4.png) | ![image5](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/5.png) | ![image6](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/6.png) | ![image7](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/7.png) |
+|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| \<그림 4\>                                                                                 | \<그림 5\>                                                                                 | \<그림 6\>                                                                                 | \<그림 7\>                                                                                 |
+
+\<그림 4\>의 상태에서 블록을 오른쪽으로 이동시키면 \<그림 5\>가 되고, 여기서 다시 위로 블록을 이동시키면 \<그림 6\>이 된다. 여기서 오른쪽으로 블록을 이동시켜 \<그림 7\>을 만들 수 있다.
+
+| ![image8](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/8.png) | ![image9](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/10.png) |
+|------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| \<그림 8\>                                                                                 | \<그림 9\>                                                                                  |
+
+\<그림 8\>의 상태에서 왼쪽으로 블록을 옮기면 어떻게 될까? 2가 충돌하기 때문에, 4로 합쳐지게 되고 \<그림 9\>의 상태가 된다.
+
+| ![image4](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/4.png) | ![image5](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/5.png) | ![image6](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/6.png) | ![image7](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/7.png) |
+|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| \<그림 10\>                                                                                | \<그림 11\>                                                                                | \<그림 12\>                                                                                | \<그림 13\>                                                                                |
+
+\<그림 10\>에서 위로 블록을 이동시키면 \<그림 11\>의 상태가 된다.
+
+\<그림 12\>의 경우에 위로 블록을 이동시키면 \<그림 13\>의 상태가 되는데, 그 이유는 한 번의 이동에서 이미 합쳐진 블록은 또 합쳐질 수 없기 때문이다.
+
+| ![image8](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/8.png) | ![image9](https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/12094/10.png) |
+|------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| \<그림 14\>                                                                                | \<그림 15\>                                                                                 |
+
+마지막으로, 똑같은 수가 세 개가 있는 경우에는 이동하려고 하는 쪽의 칸이 먼저 합쳐진다. 예를 들어, 위로 이동시키는 경우에는 위쪽에 있는 블록이 먼저 합쳐지게 된다. \<그림 14\>의 경우에 위로 이동하면 \<그림 15\>를 만든다.
+
+이 문제에서 다루는 2048 게임은 보드의 크기가 N×N 이다. 보드의 크기와 보드판의 블록 상태가 주어졌을 때, 최대 5번 이동해서 만들 수 있는 가장 큰 블록의 값을 구하는 프로그램을 작성하시오.
+
+### 입력
+
+첫째 줄에 보드의 크기 N (1 ≤ N ≤ 20)이 주어진다. 둘째 줄부터 N개의 줄에는 게임판의 초기 상태가 주어진다. 0은 빈 칸을 나타내며, 이외의 값은 모두 블록을 나타낸다. 블록에 쓰여 있는 수는 2보다 크거나 같고, 1024보다 작거나 같은 2의 제곱꼴이다. 블록은 적어도 하나 주어진다.
+
+### 출력
+
+최대 5번 이동시켜서 얻을 수 있는 가장 큰 블록을 출력한다.
+
+### 예제
+
+#### 입력 1
+
+3
+2 2 2
+4 4 4
+8 8 8
+
+#### 출력 1
+
+16
+
+---
+
+## 풀이 과정
+
+### 모든 경우의 수 구하기
+
+4방향으로 5번 움직일 수 있으므로 움직이는 경우의 수는 4⁵ = 1,024 이다. 또한 보드 칸의 개수는 최대 20 × 20 = 400으로 각 움직임마다 해당 칸만큼 확인을 해야하므로 각 경우마다 400 × 5 = 2,000번의 연산이 필요하다. 따라서 1,024 × 2,000 = 2,048,000의 최대 연산 횟수가 필요한데 이정도면 모든 경우의 수로 풀어도 충분히 풀이가 가능하다.
+
+움직이는 모든 경우의 수는 다음과 같이 방향을 수치화하여 모든 경우를 구하였다.
+
+```java
+int[] moves = new int[5];
+for (int i = 0; i < 1024; i++) {
+    // 숫자 최댓값 구하기
+    // ...
+
+    for (int j = 0; j < 5; j++) {
+        moves[j]++;
+        if (moves[j] != 4) break; // 만약 현재 위치의 값이 4라면 현재 위치 값을 0으로 하고 반복문을 중지하지 않는다.
+        moves[j] = 0;
+    }
+}
+```
+
+### 2048 시뮬레이션
+
+시물레이션 후 기존 배열은 변화가 있으면 안되므로 배열을 복사하는 메소드를 만들었다.
+
+```java
+private static int[][] getClone(int[][] arr) {
+    int[][] clone = new int[arr.length][arr[0].length];
+    for (int i = 0; i < arr.length; i++) {
+        for (int j = 0; j < arr[0].length; j++) {
+            clone[i][j] = arr[i][j];
+        }
+    }
+    return clone;
+}
+```
+
+움직이는 방향은 4방향으로 (0 - 위, 1 - 오른쪽, 2 - 아래, 3 - 왼쪽) 으로 설정하였다. 각 방향으로 블럭을 움직일때 움직이는 순서는 움직일 방향에 있는 블럭부터 확인한다. 예를 들어 4×4 보드에서 위로 움직인다고 할 때, 다음과 같은 순서로 움직인다.
+
+|   | 1  | 2  | 3  | 4  |
+|---|----|----|----|----|
+| 1 | 1  | 2  | 3  | 4  |
+| 2 | 5  | 6  | 7  | 8  |
+| 3 | 9  | 10 | 11 | 12 |
+| 4 | 13 | 14 | 15 | 16 |
+
+블럭은 일단 움직이다가 처음으로 만나는 블럭에서 합체 여부를 결정해야 한다. 그 처음 만나는 블럭을 알기 위해서 do - while 문으로 처음 만나는 블럭의 위치를 계산하였다.
+
+만약 그 블럭의 숫자가 현재 블럭의 숫자랑 일치하지 않는다면, 그 위치의 1칸 전으로 블럭을 이동시킨다.
+
+반대로 그 블럭의 숫자가 현재 블럭의 숫자랑 일치한다면, 현재 블럭은 제거하고 그 위치의 블럭 숫자를 2배로 한다. 블럭이 한번이라도 합쳐졌을 때, 더 이상 합쳐지면 안되므로 boolean[][] 배열을 통해 합체 여부를 저장하여 합쳐질지의 여부를 결정한다.
+
+다음은 위로 블럭을 이동시킬 때의 코드이다. clone은 기존 보드를 복사한 보드이다.
+
+```java
+boolean[][] merged = new boolean[N][N];
+for (int j = 0; j < N; j++) {
+    for (int i = 1; i < N; i++) {
+        if (clone[i][j] == 0) continue;
+
+        // 가장 처음 나오는 블럭의 위치 또는 벽에 막히면 r = -1
+        int r = i;
+        do {
+            r--;
+        } while (!(r < 0 || clone[r][j] != 0));
+
+        // 벽에 막히지 않았고 합체된 적이 없으며 숫자가 동일하다면
+        if (r != -1 && !merged[r][j] && clone[r][j] == clone[i][j]) {
+            clone[r][j] *= 2;
+            clone[i][j] = 0;
+            merged[r][j] = true;
+        } else {
+            clone[r + 1][j] = clone[i][j];
+            if (r + 1 != i) clone[i][j] = 0; // 만약 블럭이 움직였다면 원래 위치는 0으로 한다.
+        }
+    }
+}
+```
+
+위 코드를 같은 로직으로 모든 방향에 대해서 switch문으로 작성하였다.
+
+### 정답
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int[][] game = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < N; j++) {
+                game[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        int[] moves = new int[5];
+        int max = 0;
+        for (int i = 0; i < 1024; i++) {
+            max = Math.max(max, getMaxBlock(moves, game, N));
+
+            for (int j = 0; j < 5; j++) {
+                moves[j]++;
+                if (moves[j] != 4) break;
+                moves[j] = 0;
+            }
+        }
+        System.out.println(max);
+    }
+
+    private static int getMaxBlock(int[] moves, int[][] game, int N) {
+        int[][] clone = getClone(game);
+        for (int q = 0; q < 5; q++) {
+            boolean[][] merged = new boolean[N][N];
+            int move = moves[q];
+            switch (move) {
+                case 0: // 위
+                    for (int j = 0; j < N; j++) {
+                        for (int i = 1; i < N; i++) {
+                            if (clone[i][j] == 0) continue;
+
+                            int r = i;
+                            do {
+                                r--;
+                            } while (!(r < 0 || clone[r][j] != 0));
+
+                            if (r != -1 && !merged[r][j] && clone[r][j] == clone[i][j]) {
+                                clone[r][j] *= 2;
+                                clone[i][j] = 0;
+                                merged[r][j] = true;
+                            } else {
+                                clone[r + 1][j] = clone[i][j];
+                                if (r + 1 != i) clone[i][j] = 0;
+                            }
+                        }
+                    }
+                    break;
+                case 1: // 오른쪽
+                    for (int i = 0; i < N; i++) {
+                        for (int j = N - 2; j >= 0; j--) {
+                            if (clone[i][j] == 0) continue;
+
+                            int c = j;
+                            do {
+                                c++;
+                            } while (!(c >= N || clone[i][c] != 0));
+
+                            if (c != N && !merged[i][c] && clone[i][c] == clone[i][j]) {
+                                clone[i][c] *= 2;
+                                clone[i][j] = 0;
+                                merged[i][c] = true;
+                            } else {
+                                clone[i][c - 1] = clone[i][j];
+                                if (c - 1 != j) clone[i][j] = 0;
+                            }
+                        }
+                    }
+                    break;
+                case 2: // 아래
+                    for (int j = 0; j < N; j++) {
+                        for (int i = N - 2; i >= 0; i--) {
+                            if (clone[i][j] == 0) continue;
+
+                            int r = i;
+                            do {
+                                r++;
+                            } while (!(r >= N || clone[r][j] != 0));
+
+                            if (r != N && !merged[r][j] && clone[r][j] == clone[i][j]) {
+                                clone[r][j] *= 2;
+                                clone[i][j] = 0;
+                                merged[r][j] = true;
+                            } else {
+                                clone[r - 1][j] = clone[i][j];
+                                if (r - 1 != i) clone[i][j] = 0;
+                            }
+                        }
+                    }
+                    break;
+                case 3: // 왼쪽
+                    for (int i = 0; i < N; i++) {
+                        for (int j = 0; j < N; j++) {
+                            if (clone[i][j] == 0) continue;
+
+                            int c = j;
+                            do {
+                                c--;
+                            } while (!(c < 0 || clone[i][c] != 0));
+
+                            if (c != -1 && !merged[i][c] && clone[i][c] == clone[i][j]) {
+                                clone[i][c] *= 2;
+                                clone[i][j] = 0;
+                                merged[i][c] = true;
+                            } else {
+                                clone[i][c + 1] = clone[i][j];
+                                if (c + 1 != j) clone[i][j] = 0;
+                            }
+                        }
+                    }
+            }
+        }
+        // 최댓값 구하기
+        int max = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                max = Math.max(max, clone[i][j]);
+            }
+        }
+        return max;
+    }
+
+    private static int[][] getClone(int[][] arr) {
+        int[][] clone = new int[arr.length][arr[0].length];
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                clone[i][j] = arr[i][j];
+            }
+        }
+        return clone;
+    }
+}
+```
+
+---

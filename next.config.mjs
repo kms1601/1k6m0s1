@@ -32,6 +32,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "assets.leetcode.com",
       },
+      {
+        protocol: "https",
+        hostname: "onlinejudgeimages.*.amazonaws.com",
+      }
     ],
   },
 };
