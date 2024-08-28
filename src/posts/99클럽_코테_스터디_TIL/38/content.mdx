@@ -1,0 +1,88 @@
+---
+title: '[99클럽 코테 스터디] - 38일차 TIL'
+description: '38일차 문제 [혼자 놀기의 달인]'
+date: '2024-08-28'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.2 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/131130" target="_blank" className="a-mdx">혼자 놀기의 달인</a>]
+
+### 문제 설명
+
+혼자서도 잘 노는 범희는 어느 날 방구석에 있는 숫자 카드 더미를 보더니 혼자 할 수 있는 재미있는 게임을 생각해냈습니다.
+
+숫자 카드 더미에는 카드가 총 100장 있으며, 각 카드에는 1부터 100까지 숫자가 하나씩 적혀있습니다. 2 이상 100 이하의 자연수를 하나 정해 그 수보다 작거나 같은 숫자 카드들을 준비하고, 준비한 카드의 수만큼 작은 상자를 준비하면 게임을 시작할 수 있으며 게임 방법은 다음과 같습니다.
+
+준비된 상자에 카드를 한 장씩 넣고, 상자를 무작위로 섞어 일렬로 나열합니다. 상자가 일렬로 나열되면 상자가 나열된 순서에 따라 1번부터 순차적으로 증가하는 번호를 붙입니다.
+
+그 다음 임의의 상자를 하나 선택하여 선택한 상자 안의 숫자 카드를 확인합니다. 다음으로 확인한 카드에 적힌 번호에 해당하는 상자를 열어 안에 담긴 카드에 적힌 숫자를 확인합니다. 마찬가지로 숫자에 해당하는 번호를 가진 상자를 계속해서 열어가며, 열어야 하는 상자가 이미 열려있을 때까지 반복합니다.
+
+이렇게 연 상자들은 1번 상자 그룹입니다. 이제 1번 상자 그룹을 다른 상자들과 섞이지 않도록 따로 둡니다. 만약 1번 상자 그룹을 제외하고 남는 상자가 없으면 그대로 게임이 종료되며, 이때 획득하는 점수는 0점입니다.
+
+그렇지 않다면 남은 상자 중 다시 임의의 상자 하나를 골라 같은 방식으로 이미 열려있는 상자를 만날 때까지 상자를 엽니다. 이렇게 연 상자들은 2번 상자 그룹입니다.
+
+1번 상자 그룹에 속한 상자의 수와 2번 상자 그룹에 속한 상자의 수를 곱한 값이 게임의 점수입니다.
+
+상자 안에 들어있는 카드 번호가 순서대로 담긴 배열 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cards</span>가 매개변수로 주어질 때, 범희가 이 게임에서 얻을 수 있는 최고 점수를 구해서 return 하도록 solution 함수를 완성해주세요.
+
+### 제한사항
+
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>2</span> ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cards</span>의 길이 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>100</span>
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cards</span>의 원소는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cards</span>의 길이 이하인 임의의 자연수입니다.
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cards</span>에는 중복되는 원소가 존재하지 않습니다.
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cards[i]</span>는 i + 1번 상자에 담긴 카드에 적힌 숫자를 의미합니다.
+
+### 입출력 예
+
+| cards             | result |
+|-------------------|--------|
+| [8,6,3,7,2,5,1,4] | 12     |
+
+### 입출력 예 설명
+
+1, 4, 7, 8이 속하는 상자의 그룹과 2, 5, 6이 속하는 상자의 그룹과 3이 속하는 상자의 그룹이 존재합니다. 따라서 3번 상자를 고르지 않았을 때, 두 번의 시행에서 3과 4를 기록하며 최고 점수 12를 얻을 수 있습니다.
+
+---
+
+## 풀이 과정
+
+### 사이클 구하기
+
+각 박스 안에는 겹치는 숫자가 전혀 없으므로 모든 그룹은 반드시 닫힌 사이클을 형성하게 된다.
+이 사이클을 알아내기 위해서 이미 연 상자를 기록하는 배열을 만들고 열리지 않은 상자를 순회하면서 사이클을 구한다. 사이클 내 어떤 상자를 선택하든 항상 같은 사이클이 구해지므로 순서대로 확인해도 무방하다.
+이렇게 구한 사이클의 길이를 리스트에 넣고 리스트의 길이가 1이하이면 0을 반환하고 2이상이면 내림차순으로 정렬한 뒤 맨 앞 2개 값을 곱하면 된다.
+
+### 정답
+
+```java
+import java.util.*;
+
+class Solution {
+    public int solution(int[] cards) {
+        int n = cards.length;
+        boolean[] open = new boolean[n]; // 열린 상자 기록
+        List<Integer> group = new ArrayList<>(); // 사이클의 길이 리스트
+        for (int i = 0; i < n; i++) { // 모든 열리지 않은 상자 순회
+            if (open[i]) continue;
+            int j = i;
+            int score = 0;
+            while (!open[j]) { // 사이클 확인
+                score++;
+                open[j] = true;
+                j = cards[j] - 1; // 숫자의 값이 1부터 시작하므로 1을 뺀다.
+            }
+            group.add(score);
+        }
+
+        // 사이클의 길이가 1이하이면 0을 반환
+        if (group.size() <= 1) return 0;
+
+        // 내림차순 정렬 후, 맨 앞 두개의 곱을 반환
+        group.sort(Collections.reverseOrder());
+        return group.get(0) * group.get(1);
+    }
+}
+```
+
+---
