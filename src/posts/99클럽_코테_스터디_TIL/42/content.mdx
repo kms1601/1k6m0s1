@@ -1,0 +1,169 @@
+---
+title: '[99클럽 코테 스터디] - 42일차 TIL'
+description: '42일차 문제 [코딩 테스트 공부]'
+date: '2024-09-01'
+thumbnail: 'https://drive.google.com/thumbnail?id=1mDmYgm9XHrcPotgzaxnSPRSrteq3nNHv&sz=w1000'
+hashtags: '99클럽, 코딩테스트 준비, 개발자 취업, 항해99, TIL'
+---
+
+## 오늘의 문제 - 프로그래머스 Lv.3 [<a href="https://school.programmers.co.kr/learn/courses/30/lessons/118668" target="_blank" className="a-mdx">코딩 테스트 공부</a>]
+
+### 문제 설명
+
+**[본 문제는 정확성과 효율성 테스트 각각 점수가 있는 문제입니다.]**
+
+당신은 코딩 테스트를 준비하기 위해 공부하려고 합니다. 코딩 테스트 문제를 풀기 위해서는 알고리즘에 대한 지식과 코드를 구현하는 능력이 필요합니다.
+
+알고리즘에 대한 지식은 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>, 코드를 구현하는 능력은 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>이라고 표현합니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>은 0 이상의 정수로 표현됩니다.
+
+문제를 풀기 위해서는 문제가 요구하는 일정 이상의 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>이 필요합니다.
+
+예를 들어, 당신의 현재 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>이 15, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>이 10이라고 가정해보겠습니다.
+
+A라는 문제가 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span> 10, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 10을 요구한다면 A 문제를 풀 수 있습니다.
+B라는 문제가 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span> 10, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 20을 요구한다면 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>이 부족하기 때문에 B 문제를 풀 수 없습니다.
+풀 수 없는 문제를 해결하기 위해서는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 높여야 합니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 높이기 위한 다음과 같은 방법들이 있습니다.
+
+<span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>을 높이기 위해 알고리즘 공부를 합니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span> 1을 높이기 위해서 1의 시간이 필요합니다.
+<span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 높이기 위해 코딩 공부를 합니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 1을 높이기 위해서 1의 시간이 필요합니다.
+현재 풀 수 있는 문제 중 하나를 풀어 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 높입니다. 각 문제마다 문제를 풀면 올라가는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>이 정해져 있습니다.
+문제를 하나 푸는 데는 문제가 요구하는 시간이 필요하며 같은 문제를 여러 번 푸는 것이 가능합니다.
+당신은 주어진 모든 문제들을 풀 수 있는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 얻는 최단시간을 구하려 합니다.
+
+초기의 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 담은 정수 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp</span>와 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop</span>, 문제의 정보를 담은 2차원 정수 배열 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>problems</span>가 매개변수로 주어졌을 때, 모든 문제들을 풀 수 있는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 얻는 최단시간을 return 하도록 solution 함수를 작성해주세요.
+
+**모든 문제들을 1번 이상씩 풀 필요는 없습니다. 입출력 예 설명을 참고해주세요.**
+
+### 제한사항
+
+- 초기의 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>을 나타내는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp</span>와 초기의 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 나타내는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop</span>가 입력으로 주어집니다.
+    - 0 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp</span>,<span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop</span> ≤ 150
+- 1 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>problems</span>의 길이 ≤ 100
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>problems</span>의 원소는 [<span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp_req</span>, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop_req</span>, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp_rwd</span>, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop_rwd</span>, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cost</span>]의 형태로 이루어져 있습니다.
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp_req</span>는 문제를 푸는데 필요한 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>입니다.
+    - 0 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp_req</span> ≤ 150
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop_req</span>는 문제를 푸는데 필요한 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>입니다.
+    - 0 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop_req</span> ≤ 150
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp_rwd</span>는 문제를 풀었을 때 증가하는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>입니다.
+    - 0 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp_rwd</span> ≤ 30
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop_rwd</span>는 문제를 풀었을 때 증가하는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>입니다.
+    - 0 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop_rwd</span> ≤ 30
+- <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cost</span>는 문제를 푸는데 드는 시간입니다.
+    - 1 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cost</span> ≤ 100
+
+#### 정확성 테스트 케이스 제한사항
+
+- 0 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp</span>,<span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop</span> ≤ 20
+- 1 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>problems</span>의 길이 ≤ 6
+    - 0 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp_req</span>,<span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop_req</span> ≤ 20
+    - 0 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>alp_rwd</span>,<span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cop_rwd</span> ≤ 5
+    - 1 ≤ <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>cost</span> ≤ 10
+
+#### 효율성 테스트 케이스 제한사항
+
+- 주어진 조건 외 추가 제한사항 없습니다.
+
+### 입출력 예
+
+| alp | cop | problems                                            | result |
+|-----|-----|-----------------------------------------------------|--------|
+| 10  | 10  | [[10,15,2,1,2],[20,20,3,3,4]]                       | 15     |
+| 0   | 0   | [[0,0,2,1,2],[4,5,3,1,2],[4,11,4,0,2],[10,4,0,4,2]] | 13     |
+
+### 입출력 예 설명
+
+#### 입출력 예 #1
+
+1. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 5를 늘립니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span> 10, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 15가 되며 시간이 5만큼 소요됩니다.
+2. 1번 문제를 5번 풉니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span> 20, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 20이 되며 시간이 10만큼 소요됩니다. 15의 시간을 소요하여 모든 문제를 풀 수 있는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 가질 수 있습니다.
+
+#### 입출력 예 #2
+
+1. 1번 문제를 2번 풉니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span> 4, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 2가 되며 시간이 4만큼 소요됩니다.
+2. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 3을 늘립니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span> 4, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 5가 되며 시간이 3만큼 소요됩니다.
+3. 2번 문제를 2번 풉니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span> 10, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 7이 되며 시간이 4만큼 소요됩니다.
+4. 4번 문제를 1번 풉니다. <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span> 10, <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span> 11이 되며 시간이 2만큼 소요됩니다. 13의 시간을 소요하여 모든 문제를 풀 수 있는 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>알고력</span>과 <span className={"bg-secondary dark:bg-secondary-dark p-1 rounded"}>코딩력</span>을 가질 수 있습니다.
+
+---
+
+## 풀이 과정
+
+### 목표 구하기
+
+먼저 도달해야 할 알고력과 코딩력을 알아야한다. 모든 문제를 풀 수 있어야 하므로 문제 중 가장 높은 알고력과 코딩력이 도달해야할 수치이다.
+
+### DP 배열
+
+2차원 배열로 DP 배열을 만든다. 이 배열의 각 칸의 의미는 dp[a][c] - 알고력 a, 코딩력 c에 도달하기 위한 최단 시간이다.
+
+이 배열의 크기는
+
+- 행 - (목표 알고력, 초기 알고력 중 최댓값) + 1
+- 열 - (목표 코딩력, 초기 코딩력 중 최댓값) + 1
+
+와 같이 설정한다. 목표값만이 아닌 초기값도 고려하는 이유는 초기값 위치의 값을 0으로 초기화할 것이기 때문이다.
+
+그리고 배열을 전부 INF값으로 채우고 초기 알고력, 코딩력에 해당하는 위치의 값을 0으로 초기화한다(그 수치에 도달하기 위헤 시간이 필요하지 않음).
+
+### DP 수행
+
+위에서 만든 DP 배열을 전부 순회한다.
+
+- 만약 값이 INF라면 해당 수치로 만들 수 있는 경우가 없는 것이므로 넘어간다.
+- 만약 값이 INF가 아니라면 모든 문제를 순회한다.
+    - 각 문제의 요구 알고력, 코딩력을 현재 알고력, 코딩력이 넘지 못했다면 넘어간다(풀 수 없음).
+    - 그렇지 않다면 현재 알고력, 코딩력에 문제의 증가값을 더한다. 만약 이 값이 배열의 범위를 넘어선다면 목표값으로 제한한다.
+    - 이렇게 얻은 새로운 알고력, 코딩력에 해당하는 배열값의 최솟값을 갱신한다.
+    - 마지막으로 1의 시간을 써서 각 수치를 올리는 경우를 처리한다.
+
+이렇게 DP 배열을 전부 채우고 배열의 오른쪽 아래 값을 반환한다.
+
+### 정답
+
+```java
+import java.util.*;
+
+class Solution {
+    private final int INF = 1_000_000_000;
+
+    public int solution(int alp, int cop, int[][] problems) {
+        // 목표값 찾기
+        int trtAlp = alp, trtCop = cop;
+        for (int[] problem : problems) {
+            trtAlp = Math.max(trtAlp, problem[0]);
+            trtCop = Math.max(trtCop, problem[1]);
+        }
+
+        int[][] dp = new int[trtAlp + 1][trtCop + 1];
+
+        // 각 배열의 값을 INF로 채우고 초기 수치에 해당하는 배열값을 0으로 한다.
+        for (int i = 0; i <= trtAlp; i++) {
+            Arrays.fill(dp[i], INF);
+        }
+        dp[alp][cop] = 0;
+
+        for (int a = 0; a <= trtAlp; a++) {
+            for (int c = 0; c <= trtCop; c++) {
+                if (dp[a][c] == INF) continue; // 해당 수치로 도달할 수 없으면 넘어간다.
+
+                for (int[] problem : problems) {
+                    if (a < problem[0] || c < problem[1]) continue; // 문제를 풀 수 없다면 넘어간다.
+
+                    // 배열의 범위를 넘지 않게 값을 제한한다.
+                    int na = Math.min(trtAlp, a + problem[2]);
+                    int nc = Math.min(trtCop, c + problem[3]);
+                    dp[na][nc] = Math.min(costs[na][nc], dp[a][c] + problem[4]); // 최솟값 갱신
+                }
+
+                // 각 수치를 1 올리는 경우를 처리
+                if (a != trtAlp) dp[a + 1][c] = Math.min(dp[a + 1][c], dp[a][c] + 1);
+                if (c != trtCop) dp[a][c + 1] = Math.min(dp[a][c + 1], dp[a][c] + 1);
+            }
+        }
+
+        return dp[trtAlp][trtCop];
+    }
+}
+```
+
+---
