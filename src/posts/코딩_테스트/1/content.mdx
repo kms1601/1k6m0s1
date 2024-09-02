@@ -1,0 +1,101 @@
+---
+title: '코딩테스트 풀이 1'
+description: '25870 - [Parity of String]'
+date: '2024-09-03'
+thumbnail: 'https://drive.google.com/thumbnail?id=1_i9hGGl4pc-AjE6p2U0N4cOb-bYdXi5X&sz=w1000'
+hashtags: '코딩테스트'
+---
+
+
+## 백준 브론즈 III [<a href="https://www.acmicpc.net/problem/25870" target="_blank" className="a-mdx">Parity of String</a>]
+
+### 문제
+
+The historical battle between numbers and strings has taken a new twist: numbers are bragging on their categorization of being “even” or “odd” and strings lacking such feature. But don’t count strings out yet!
+
+A string is considered “even” if every letter in the string appears an even number of times; the string is “odd” if every letter in the string appears an odd number of times.
+
+Given a string, determine whether the string is even, odd, or neither.
+
+### 입력
+
+The input consists of a single line, starting in column 1, not exceeding column 70, and containing only the lowercase letters (at least one letter).
+
+### 출력
+
+The output consists of a single integer: print 0 (zero) if the string is even, 1 (one) if the string is odd, or 2 if the string is not even and is not odd (i.e., it is neither).
+
+### 예제
+
+#### 입력 1
+
+coachessoaehwwwwww
+
+#### 출력 1
+
+0
+
+#### 입력 2
+
+coachesarefun
+
+#### 출력 2
+
+2
+
+#### 입력 3
+
+coachesc
+
+#### 출력 3
+
+1
+
+#### <a href="https://www.acmicpc.net/board/view/102567" target="_blank" className="a-mdx">번역</a>
+
+---
+
+## 풀이 과정
+
+### 각 문자 개수 세기
+
+먼저 문자열에서 각 문자의 개수를 세야한다. 라틴 소문자만 나오므로 26칸의 정수 배열로 개수를 셀 수 있다. 개수를 셀 때는 스트림의 forEach를 이용하였다.
+
+그리고 각 문자를 전부 순회하면서 1이상인 문자에 대해 짝수, 홀수를 판별하여 개수를 센다. 이렇게 구한 개수로 정답을 출력한다.
+
+### 정답
+
+```java
+import java.io.*;
+
+public class Main {
+    static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    public static void main(String[] args) throws IOException {
+        String input = br.readLine();
+        int[] count = new int[26];
+        input.chars().forEach((c) -> count[c - 'a']++);
+
+        int even = 0;
+        int odd = 0;
+        for (int c : count) {
+            if (c == 0) continue;
+
+            if (c % 2 == 0) even++;
+            else odd++;
+        }
+
+        if (even > 0) {
+            if (odd > 0) {
+                System.out.println(2);
+            } else {
+                System.out.println(0);
+            }
+        } else {
+            System.out.println(1);
+        }
+    }
+}
+```
+
+---
