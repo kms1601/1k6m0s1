@@ -1,0 +1,196 @@
+---
+title: '코딩테스트 풀이 4'
+description: '2503 - [숫자 야구]'
+date: '2024-09-10'
+thumbnail: 'https://drive.google.com/thumbnail?id=1_i9hGGl4pc-AjE6p2U0N4cOb-bYdXi5X&sz=w1000'
+hashtags: '코딩테스트'
+---
+
+
+## 백준 실버 III [<a href="https://www.acmicpc.net/problem/2503" target="_blank" className="a-mdx">숫자 야구</a>]
+
+### 문제
+정보문화진흥원 정보 영재 동아리에서 동아리 활동을 하던 영수와 민혁이는 쉬는 시간을 틈타 숫자야구 게임을 하기로 했다.
+
+- 영수는 1에서 9까지의 서로 다른 숫자 세 개로 구성된 세 자리 수를 마음속으로 생각한다. (예: 324)
+- 민혁이는 1에서 9까지의 서로 다른 숫자 세 개로 구성된 세 자리 수를 영수에게 묻는다. (예: 123)
+- 민혁이가 말한 세 자리 수에 있는 숫자들 중 하나가 영수의 세 자리 수의 동일한 자리에 위치하면 스트라이크 한 번으로 센다. 숫자가 영수의 세 자리 수에 있긴 하나 다른 자리에 위치하면 볼 한 번으로 센다.
+
+예) 영수가 324를 갖고 있으면
+
+- 429는 1 스트라이크 1 볼이다.
+- 241은 0 스트라이크 2 볼이다.
+- 924는 2 스트라이크 0 볼이다.
+- 영수는 민혁이가 말한 수가 몇 스트라이크 몇 볼인지를 답해준다.
+- 민혁이가 영수의 세 자리 수를 정확하게 맞추어 3 스트라이크가 되면 게임이 끝난다. 아니라면 민혁이는 새로운 수를 생각해 다시 영수에게 묻는다.
+
+현재 민혁이와 영수는 게임을 하고 있는 도중에 있다. 민혁이가 영수에게 어떤 수들을 물어보았는지, 그리고 각각의 물음에 영수가 어떤 대답을 했는지가 입력으로 주어진다. 이 입력을 바탕으로 여러분은 영수가 생각하고 있을 가능성이 있는 수가 총 몇 개인지를 알아맞혀야 한다.
+
+아래와 같은 경우를 생각해보자.
+
+- 민혁: 123
+- 영수: 1 스트라이크 1 볼.
+- 민혁: 356
+- 영수: 1 스트라이크 0 볼.
+- 민혁: 327
+- 영수: 2 스트라이크 0 볼.
+- 민혁: 489
+- 영수: 0 스트라이크 1 볼.
+
+이때 가능한 답은 324와 328, 이렇게 두 가지이다.
+
+영수는 동아리의 규율을 잘 따르는 착한 아이라 민혁이의 물음에 곧이곧대로 정직하게 답한다. 그러므로 영수의 답들에는 모순이 없다.
+
+민혁이의 물음들과 각각의 물음에 대한 영수의 답이 입력으로 주어질 때 영수가 생각하고 있을 가능성이 있는 답의 총 개수를 출력하는 프로그램을 작성하시오.
+
+### 입력
+
+첫째 줄에는 민혁이가 영수에게 몇 번이나 질문을 했는지를 나타내는 1 이상 100 이하의 자연수 N이 주어진다. 이어지는 N개의 줄에는 각 줄마다 민혁이가 질문한 세 자리 수와 영수가 답한 스트라이크 개수를 나타내는 정수와 볼의 개수를 나타내는 정수, 이렇게 총 세 개의 정수가 빈칸을 사이에 두고 주어진다.
+
+### 출력
+
+첫 줄에 영수가 생각하고 있을 가능성이 있는 답의 총 개수를 출력한다.
+
+### 예제
+
+#### 입력 1
+
+4
+123 1 1
+356 1 0
+327 2 0
+489 0 1
+
+#### 출력 1
+
+2
+
+---
+
+## 풀이 과정
+
+### Answer 클래스
+
+영수가 답한 내용을 Answer 클래스로 정의하여 처리하면 좋을 것 같다고 생각해서 Answer 클래스를 정의하였다. 필드는 다음과 같다.
+
+- String number: 질문 숫자
+- int strike: 질문에서 답한 스트라이크
+- int ball: 질문에서 답한 볼
+
+그리고 구현한 메소드는 다음과 같다.
+
+- public boolean test(String number): 주어진 숫자와 질문의 답이 일치 여부
+- private int match(String number, int offset, boolean[] used): offset만큼 이동했을 때, 일치하는 개수. used는 이미 일치를 확인한 숫자를 제외하기 위해 사용. 클래스 내부에서만 사용하기 때문에 접근제어자는 private으로 설정.
+
+#### Answer 클래스 구현
+
+```java
+static class Answer {
+    String number;
+    int strike;
+    int ball;
+
+    public Answer(String number, int strike, int ball) {
+        this.number = number;
+        this.strike = strike;
+        this.ball = ball;
+    }
+
+    public boolean test(String number) {
+        int strike = 0;
+        int ball = 0;
+        boolean[] used = new boolean[3];
+
+        strike += match(number, 0, used);
+        ball += match(number, 1, used) + match(number, 2, used);
+        return this.strike == strike && this.ball == ball;
+    }
+
+    private int match(String number, int offset, boolean[] used) {
+        int result = 0;
+        for (int i = 0; i < 3; i++) {
+            if (!used[i] && number.charAt((i + offset) % 3) == this.number.charAt(i)) {
+                result++;
+                used[i] = true; // 숫자가 일치했으면 제외한다.
+            }
+        }
+        return result;
+    }
+}
+```
+
+### 브루트포스
+
+모든 가능한 답의 개수가 1000개 이하이고 질문은 최대 100개이므로 브루트포스로 충분히 풀이가 가능하다. 즉, 111 ~ 999중 0이 포함되거나 같은 숫자가 있는 경우를 제외하고 모든 Answer의 test메소드 결과가 전부 true인 것의 개수를 세면 된다.
+
+모든 Answer의 test메소드 결과는 스트림의 allMatch를 사용하였다.
+
+### 정답
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private static StringTokenizer st;
+
+    static class Answer {
+        String number;
+        int strike;
+        int ball;
+
+        public Answer(String number, int strike, int ball) {
+            this.number = number;
+            this.strike = strike;
+            this.ball = ball;
+        }
+
+        public boolean test(String number) {
+            int strike = 0;
+            int ball = 0;
+            boolean[] used = new boolean[3];
+
+            strike += match(number, 0, used);
+            ball += match(number, 1, used) + match(number, 2, used);
+            return this.strike == strike && this.ball == ball;
+        }
+
+        private int match(String number, int offset, boolean[] used) {
+            int result = 0;
+            for (int i = 0; i < 3; i++) {
+                if (!used[i] && number.charAt((i + offset) % 3) == this.number.charAt(i)) {
+                    result++;
+                    used[i] = true;
+                }
+            }
+            return result;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        int N = Integer.parseInt(br.readLine());
+        Answer[] answers = new Answer[N];
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            answers[i] = new Answer(st.nextToken(), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+        }
+
+        int answer = 0;
+        for (int i = 111; i <= 999; i++) {
+            String number = String.valueOf(i);
+            // 0이 포함되었으면 넘어간다.
+            if (number.contains("0")) continue;
+            // 같은 숫자가 있다면 넘어간다.
+            if (number.charAt(0) == number.charAt(1) || number.charAt(0) == number.charAt(2) || number.charAt(1) == number.charAt(2)) continue;
+
+            // 모든 Answer 클래스에 대해 test의 결과가 전부 true라면
+            if (Arrays.stream(answers).allMatch((a) -> a.test(number))) {
+                answer++;
+            }
+        }
+        System.out.println(answer);
+    }
+}
+```
+---
