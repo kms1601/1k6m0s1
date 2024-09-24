@@ -1,0 +1,202 @@
+---
+title: '코딩테스트 풀이 6'
+description: '1448 - [삼각형 만들기]'
+date: '2024-09-24'
+thumbnail: 'https://drive.google.com/thumbnail?id=1_i9hGGl4pc-AjE6p2U0N4cOb-bYdXi5X&sz=w1000'
+hashtags: '코딩테스트'
+---
+
+## 백준 실버 III [<a href="https://www.acmicpc.net/problem/1448" target="_blank" className="a-mdx">삼각형 만들기</a>]
+
+### 문제
+
+세준이는 N개의 빨대를 가지고 있다. N개의 빨대 중에 3개의 빨대를 선택했을 때, 이 빨대로 삼각형을 만들 수 있다면, 세 변의 길이의 합의 최댓값을 구하고 싶다.
+
+### 입력
+
+첫째 줄에 빨대의 개수 N이 주어진다. N은 3보다 크거나 같고, 1,000,000보다 작거나 같은 자연수이다. 둘째 줄부터 N개의 줄에 빨대의 길이가 한 줄에 하나씩 주어진다. 빨대의 길이는 1,000,000보다 작거나 같은 자연수이다.
+
+### 출력
+
+첫째 줄에 삼각형 세 변의 길이의 합의 최댓값을 출력한다. 만약 삼각형을 만들 수 없으면 -1을 출력한다.
+
+### 예제
+
+#### 입력 1
+
+3
+1
+2
+3
+
+#### 출력 1
+
+-1
+
+#### 입력 2
+
+3
+1
+2
+2
+
+#### 출력 2
+
+-5
+
+#### 입력 3
+
+6
+2
+3
+2
+3
+2
+4
+
+#### 출력 3
+
+10
+
+#### 입력 4
+
+5
+4
+5
+6
+7
+20
+
+#### 출력 4
+
+18
+
+---
+
+## 풀이 과정
+
+간단하게 조합을 통해 3개의 변을 골라서 삼각형을 만들 수 있을 때, 최댓값을 갱신하는 방식으로 구할 수 있다. 하지만 문제 조건에서 주어진 빨대의 수는 1,000,000이므로 조합의 경우의 수는 ₁₀₀₀₀₀₀C₃ = 166,666,166,667,000,000로 조합으로는 풀 수 없다.
+
+### 삼각형의 조건
+
+세 변의 길이가 주어졌을 때, 삼각형이 되기 위한 조건은 다음과 같다.
+
+- 가장 긴 변의 길이는 나머지 두 변의 길이의 합보다 작아야 한다.
+
+### 정렬하기
+
+먼저 주어진 입력을 정렬한다.
+
+그 다음에는 가장 긴 변을 골라야 하는데 문제에서는 최댓값을 구하는 것을 요구하므로 뒤에서부터 가장 긴 변을 선정한다.
+
+그렇다면 나머지 두 변은 어떻게 골라야 할까? 바로 앞 2개가 나머지 두 변의 합의 최댓값이 된다. 다른 조합은 바로 앞 2개의 합보다 작거나 같으므로 확인할 필요가 없다. 삼각형의 조건에 따라 삼각형이 만들어지지 않는다면 현재 가장 긴 변의 길이로는 삼각형을 만들 수 없다는 의미이다.
+
+만약 예제 4를 예로 든다면
+
+|길이|선택|
+|-|-|
+|4||
+|5||
+|6|O|
+|7|O|
+|20|O|
+
+여기서 가장 긴 변은 20이고 6, 7이외의 다른 조합은 6 + 7 = 13보다 작다. 20 > 13이므로 삼각형이 만들어 지지 않으므로 가장 긴 변이 20일때는 삼각형을 만들 수 없다. 그러므로 가장 긴 변을 7로 다시 계산하면
+
+|길이|선택|
+|-|-|
+|4||
+|5|O|
+|6|O|
+|7|O|
+|20||
+
+7 < 11 이므로 삼각형을 만들 수 있다.
+
+정리하자면 정렬한 뒤 뒤에서부터 3개 단위로 삼각형이 만들어지는지 확인하고 만들어진다면 합을 출력하고 어떠한 조합으로도 만들 수 없다면 -1을 출력한다.
+
+### 정답
+
+```java
+import java.io.*;
+import java.math.*;
+import java.util.*;
+
+public class Main {
+    private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
+
+    private static StringTokenizer st;
+    private static List<List<Integer>> vertexes = new ArrayList<>();
+    private static int N;
+
+    public static void main(String[] args) throws IOException {
+        st = new StringTokenizer(BR.readLine());
+        N = Integer.parseInt(st.nextToken());
+        int Q = Integer.parseInt(st.nextToken());
+
+        long[] nums = new long[N + 1]; // 각 집의 번호
+        st = new StringTokenizer(BR.readLine());
+        vertexes.add(null);
+        for (int i = 1; i <= N; i++) {
+            nums[i] = Integer.parseInt(st.nextToken());
+            vertexes.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < N - 1; i++) {
+            st = new StringTokenizer(BR.readLine());
+            int p = Integer.parseInt(st.nextToken());
+            int q = Integer.parseInt(st.nextToken());
+            // 양방향 통행이 가능
+            vertexes.get(p).add(q);
+            vertexes.get(q).add(p);
+        }
+
+        for (int i = 0; i < Q; i++) {
+            st = new StringTokenizer(BR.readLine());
+            List<Integer> solved = solve(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+
+            StringBuilder sb = new StringBuilder();
+            solved.forEach((e) -> sb.append(nums[e])); // 집의 방문 순서를 집의 번호로 변경
+            // 값이 매우 클 수 있으므로 BigInteger로 나머지를 구한다
+            BigInteger result = new BigInteger(sb.toString());
+            result = result.mod(new BigInteger("1000000007"));
+            System.out.println(result);
+        }
+    }
+
+    // x 에서 y로 가는 경로 찾기
+    private static List<Integer> solve(int x, int y) {
+        Deque<List<Integer>> queue = new ArrayDeque<>(); // BFS 수행 시, 방문한 집의 번호를 방문한 순서대로 저장한다.
+        boolean[] visit = new boolean[N + 1];
+        List<Integer> init = new ArrayList<>();
+        init.add(x);
+        queue.add(init);
+        visit[x] = true;
+
+        if (x == y) return init; // 시작점과 끝점이 같다면 바로 반환
+
+        // BFS
+        while (!queue.isEmpty()) {
+            List<Integer> cur = queue.poll();
+            for (int next : vertexes.get(cur.get(cur.size() - 1))) {
+                if (visit[next]) continue;
+
+                // 끝점에 도달했다면
+                if (next == y) {
+                    cur.add(next);
+                    return cur;
+                }
+
+                List<Integer> clone = new ArrayList<>(cur);
+                clone.add(next);
+                queue.add(clone);
+                visit[next] = true;
+            }
+        }
+        return new ArrayList<>(); // 에러 방지용
+    }
+}
+```
+
+
+---
