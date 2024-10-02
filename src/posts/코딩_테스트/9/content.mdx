@@ -1,0 +1,129 @@
+---
+title: '코딩테스트 풀이 9'
+description: '10597 - [순열 장난]'
+date: '2024-10-01'
+thumbnail: 'https://drive.google.com/thumbnail?id=1_i9hGGl4pc-AjE6p2U0N4cOb-bYdXi5X&sz=w1000'
+hashtags: '코딩테스트'
+---
+
+## 백준 골드 V [<a href="https://www.acmicpc.net/problem/10597" target="_blank" className="a-mdx">순열 장난</a>]
+
+### 문제
+
+kriii는 1부터 N까지의 수로 이루어진 순열을 파일로 저장해 놓았다. 모든 수는 10진수로 이루어져 있고, 모두 공백으로 분리되어 있다.
+
+그런데 sujin이 그 파일의 모든 공백을 지워버렸다!
+
+kriii가 순열을 복구하도록 도와주자.
+
+### 입력
+
+첫 줄에 공백이 사라진 kriii의 수열이 주어진다.
+
+kriii의 순열은 최소 1개 최대 50개의 수로 이루어져 있다.
+
+### 출력
+
+복구된 수열을 출력한다. 공백을 잊으면 안 된다.
+
+복구한 수열의 경우가 여러 가지 일 경우, 그 중 하나를 출력한다.
+
+### 예제
+
+#### 입력 1
+
+4111109876532
+
+#### 출력 1
+
+4 1 11 10 9 8 7 6 5 3 2
+
+---
+
+## 풀이 과정
+
+### N 구하기
+
+먼저 N을 구하자. 만약 수열의 길이가 9 이하라면 순열 내에는 한자리 숫자 밖에 없는 것이므로 수열을 한 자리씩 끊어서 출력하면 답이다.
+
+그렇지 않다면(길이가 9 초과) 두자리 숫자가 있다는 것이다. 수열의 길이에서 9를 빼면 한자리 숫자를 제외한 두자리 숫자의 길이를 알 수 있다. 이 값을 2로 나누면 두자리 숫자의 개수를 구할 수 있고, 한자리 숫자의 개수인 9를 더하면 N을 구할 수 있다. 즉, N = ((수열의 길이) - 9) / 2 + 9이다.
+
+- N = ((수열의 길이) - 9) / 2 + 9
+
+### 백트래킹
+
+수열의 특정 위치에서 두가지의 경우가 가능하다.
+
+- 한자리 숫자
+- 두자리 숫자
+
+두 경우 모두 이미 있는 숫자라면 넘어간다.
+
+한자리 숫자의 경우 현재 위치가 0이라면 넘어간다.
+
+두자리 숫자의 경우 현재 위치가 수열의 마지막이라면 넘어간다. 그리고 구한 두자리 숫자의 값이 N보다 크다면 넘어간다.
+
+위의 방식으로 백트래킹을 이용해서 가장 처음으로 나오는 답을 출력하면 된다.
+
+### 정답
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
+
+    private static String seq;
+    private static int N;
+    private static List<Integer> result = new ArrayList<>();
+    private static boolean[] used;
+
+    public static void main(String[] args) throws IOException {
+        seq = BR.readLine();
+        // 수열의 길이가 9 이하라면 하나씩 출력
+        if (seq.length() <= 9) {
+            for (char c : seq.toCharArray()) {
+                System.out.printf("%c ", c);
+            }
+        } else {
+            N = (seq.length() - 9) / 2 + 9; // N 구하기
+            used = new boolean[N + 1]; // 숫자가 있는지 체크
+            getSeq(0);
+        }
+    }
+
+    private static void getSeq(int cur) {
+        // 수열을 찾았다면 출력하고 프로그램 종료
+        if (cur == seq.length()) {
+            result.forEach((e) -> System.out.printf("%d ", e));
+            System.exit(0);
+        }
+
+        int a = Integer.parseInt(seq.substring(cur, cur + 1)); // 한자리 숫자
+
+        if (a == 0) return; // 0이라면 넘어간다.
+        if (!used[a]) { // 사용되지 않았다면
+            used[a] = true;
+            result.add(a);
+            getSeq(cur + 1);
+            // 백트래킹
+            result.remove(result.size() - 1);
+            used[a] = false;
+        }
+
+        if (cur == seq.length() - 1) return; // 수열의 마지막 부분이라면 넘어간다.
+        a = Integer.parseInt(seq.substring(cur, cur + 2)); // 두자리 숫자
+        if (a <= N && !used[a]) { // N 이하이고 사용되지 않았다면
+            used[a] = true;
+            result.add(a);
+            getSeq(cur + 2);
+            // 백트래킹
+            result.remove(result.size() - 1);
+            used[a] = false;
+        }
+    }
+}
+```
+
+---
