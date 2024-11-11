@@ -44,17 +44,17 @@ const Navbar = () => {
       <div className="block md:hidden">
         <nav
           className="fixed top-0 z-10 grid h-20 w-full grid-cols-3 place-items-center transition-colors duration-0 bg-secondary dark:bg-secondary-dark">
-          <div className="text-3xl font-bold ml-10"><Link href="/">1K6M0S1</Link></div>
+          <div className="ml-10 text-3xl font-bold"><Link href="/">1K6M0S1</Link></div>
           <div/>
-          <div className="justify-self-end mr-10">
+          <div className="mr-10 justify-self-end">
             <Sheet>
               <SheetTrigger><Menu className="h-8 w-8"></Menu></SheetTrigger>
-              <SheetContent className="w-1/2 bg-primary dark:bg-primary-dark border-none">
+              <SheetContent className="w-1/2 border-none bg-primary dark:bg-primary-dark">
                 <SheetHeader className="mb-2">
                   <SheetTitle className="text-xl">Menu</SheetTitle>
                 </SheetHeader>
                 <SheetDescription></SheetDescription>
-                <div className="flex flex-col mb-5">
+                <div className="mb-5 flex flex-col">
                   <SheetClose asChild className="mb-1">
                     <Link href={"/blog"} className="hover:text-description">Blog</Link>
                   </SheetClose>

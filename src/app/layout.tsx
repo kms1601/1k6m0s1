@@ -19,7 +19,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
     <body className="bg-primary dark:bg-primary-dark">
     <Providers>
       <div
-        className="transition-colors duration-100 bg-primary dark:bg-primary-dark flex flex-col min-h-screen text-text dark:text-text-dark">
+        className="flex min-h-screen flex-col transition-colors duration-100 bg-primary text-text dark:bg-primary-dark dark:text-text-dark">
         <Navbar/>
         <div className="mt-28">
           {children}

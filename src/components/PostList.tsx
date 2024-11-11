@@ -15,7 +15,7 @@ const PostList = ({category, posts}: {category?: string, posts: Post[]}) => {
 
   return (
     <div className="flex justify-center">
-      <div className="grid grid-cols-1 gridxs:grid-cols-2 grids:grid-cols-1 gridm:grid-cols-2 gridl:grid-cols-3 gridxl:grid-cols-4">
+      <div className="grid grid-cols-1 grids:grid-cols-1 gridxs:grid-cols-2 gridm:grid-cols-2 gridl:grid-cols-3 gridxl:grid-cols-4">
         {posts.map((post: Post, i) => (
           <PostCard post={post} key={i}/>
         ))}

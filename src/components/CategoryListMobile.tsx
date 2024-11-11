@@ -9,7 +9,7 @@ const CategoryListMobile = ({categories, count}: { categories: string[], count: 
   const {category} = useCategory();
 
   return (
-    <div className="w-4/5 mx-auto">
+    <div className="mx-auto w-4/5">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>Category</AccordionTrigger>

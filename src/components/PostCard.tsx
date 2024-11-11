@@ -13,8 +13,8 @@ const PostCard = ({post}: { post: Post }) => {
   return (
     <Link href={`../blog/${post.category}/${post.slug}`}>
       <div
-        className="m-3 w-64 h-80 rounded p-3 transition postcard hover:bg-secondary hover:dark:bg-secondary-dark">
-        <div className="flex flex-col justify-between h-full">
+        className="m-3 h-80 w-64 rounded p-3 transition postcard hover:bg-secondary hover:dark:bg-secondary-dark">
+        <div className="flex h-full flex-col justify-between">
           <div>
             <div className="mb-2">
               <Image src={post.header.thumbnail} alt={"thumbnail"} width={600} height={400} className="rounded"/>
@@ -24,7 +24,7 @@ const PostCard = ({post}: { post: Post }) => {
           </div>
           <div>
             <footer>
-              <p className="text-sm text-end text-description">{post.header.date}</p>
+              <p className="text-end text-sm text-description">{post.header.date}</p>
             </footer>
           </div>
         </div>
