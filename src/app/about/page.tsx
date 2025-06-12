@@ -33,7 +33,7 @@ const AboutPage = () => {
         <Link href={BASE_URL}>
           <div className="mt-3 flex justify-center hover:text-description">
             <Globe className="mr-2"/>
-            <p className="text-center">1k6m0s1.com</p>
+            <p className="text-center">1k6m0s1.xyz</p>
           </div>
         </Link>
       </div>
